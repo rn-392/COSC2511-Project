@@ -1,5 +1,53 @@
+import java.util.Scanner;
+
+/**
+ * The main application class for the game.
+ * This class initializes the game map, player, and handles user input for
+ * gameplay.
+ */
 public class App {
+    /**
+     * The main method to start the game.
+     *
+     * 
+     */
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        Scanner scanner = new Scanner(System.in);
+        GameMap map = new GameMap();
+        Player player = new Player();
+
+        System.out.println("Welcome. Type n/s/e/w to move. Type q to quit.");
+
+        while (true) {
+            Location current = map.getLocation(player.getX(), player.getY());
+            System.out.println(
+                    "\nLocation: " + current.getName() + " (" + player.getX() + ", " + player.getY() + ")");
+            System.out.println(current.getDescription());
+
+            System.out.print("Enter command: ");
+            String input = scanner.nextLine();
+            System.out.println();
+
+            switch (input.toLowerCase()) {
+                case "n" -> player.moveNorth();
+                case "s" -> player.moveSouth();
+                case "e" -> player.moveEast();
+                case "w" -> player.moveWest();
+                case "map" -> map.printMap(player);
+                case "?", "help" -> {
+                    System.out.println("Available commands:");
+                    System.out.println("n / s / e / w - Move north, south, east, west");
+                    System.out.println("map - Display the game map");
+                    System.out.println("inv - Show your inventory");
+                    System.out.println("help / ? - Show this help menu");
+                    System.out.println("q - Quit the game");
+                }
+                case "q" -> {
+                    System.out.println("Quitting...");
+                    return;
+                }
+                default -> System.out.println("Invalid input.");
+            }
+        }
     }
 }
