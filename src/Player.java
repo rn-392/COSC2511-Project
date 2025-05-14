@@ -1,6 +1,8 @@
 /**
  * This class represents a player in the game.
  * The player can move around the game map within defined boundaries.
+ * 
+ * @author Ricky Nguyen
  */
 public class Player {
     /**
