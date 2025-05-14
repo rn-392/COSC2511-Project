@@ -1,5 +1,6 @@
 /**
  * This class represents a location in the game world.
+ * * @author Ricky Nguyen
  */
 public class Location {
     /**
