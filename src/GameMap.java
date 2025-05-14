@@ -42,6 +42,7 @@ public class GameMap {
      */
     public void printMap(Player player) {
         for (int y = 4; y >= 0; y--) {
+            System.out.println();
             for (int x = 0; x < 5; x++) {
                 if (x == player.getX() && y == player.getY()) {
                     System.out.print("[ P ] ");
