@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 /**
  * The main application class for the game.
  * This class initializes the game map, player, and handles user input for
@@ -46,6 +47,10 @@ public class App {
             }
         }
 
+            System.out.println("\nPlease enter a name: ");
+            String name = scanner.nextLine();
+        
+        
         System.out.println("Type n/s/e/w to move. Type q to quit. Type help for commands.");
 
         while (gameStart == true) {
