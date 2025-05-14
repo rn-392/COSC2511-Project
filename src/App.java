@@ -16,17 +16,29 @@ public class App {
         GameMap map = new GameMap();
         Player player = new Player();
 
-        System.out.println("Welcome. Type n/s/e/w to move. Type q to quit.");
+    //Title of Game using Ascii - christ
+    System.out.println("  _______      ___       __          ___       ______ .___________. __    ______     _______       ___   ____    __    ____ .__   __. \n" + //
+    " /  _____|    /   \\     |  |        /   \\     /      ||           ||  |  /      |   |       \\     /   \\  \\   \\  /  \\  /   / |  \\ |  | \n" + //
+    "|  |  __     /  ^  \\    |  |       /  ^  \\   |  ,----'`---|  |----`|  | |  ,----'   |  .--.  |   /  ^  \\  \\   \\/    \\/   /  |   \\|  | \n" + //
+    "|  | |_ |   /  /_\\  \\   |  |      /  /_\\  \\  |  |         |  |     |  | |  |        |  |  |  |  /  /_\\  \\  \\            /   |  . `  | \n" + //
+    "|  |__| |  /  _____  \\  |  `----./  _____  \\ |  `----.    |  |     |  | |  `----.   |  '--'  | /  _____  \\  \\    /\\    /    |  |\\   | \n" + //
+    " \\______| /__/     \\__\\ |_______/__/     \\__\\ \\______|    |__|     |__|  \\______|   |_______/ /__/     \\__\\  \\__/  \\__/     |__| \\__|   ");
 
-        while (true) {
-            Location current = map.getLocation(player.getX(), player.getY());
-            System.out.println(
-                    "\nLocation: " + current.getName() + " (" + player.getX() + ", " + player.getY() + ")");
-            System.out.println(current.getDescription());
+
+         System.out.println("\n\n\t\t\t\t\t\t\tPress 1 to start");
+         
+         System.out.println("\n\t\t\t\t\t\t\tPress q to quit");
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
             System.out.println();
+            System.out.println("Welcome. Type n/s/e/w to move. Type q to quit.");
+
+            while (true) {
+                Location current = map.getLocation(player.getX(), player.getY());
+                System.out.println(
+                        "\nLocation: " + current.getName() + " (" + player.getX() + ", " + player.getY() + ")");
+                System.out.println(current.getDescription());
 
             switch (input.toLowerCase()) {
                 case "n" -> player.moveNorth();
