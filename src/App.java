@@ -46,7 +46,6 @@ public class App {
             }
         }
 
-        System.out.println();
         System.out.println("Type n/s/e/w to move. Type q to quit. Type help for commands.");
 
         while (gameStart == true) {
@@ -57,6 +56,7 @@ public class App {
 
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
+            System.out.println();
 
             switch (input.toLowerCase()) {
                 case "n" -> player.moveNorth();
