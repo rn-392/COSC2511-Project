@@ -47,7 +47,7 @@ public class App {
         }
 
         System.out.println();
-        System.out.println("Type n/s/e/w to move. Type q to quit.");
+        System.out.println("Type n/s/e/w to move. Type q to quit. Type help for commands.");
 
         while (gameStart == true) {
             Location current = map.getLocation(player.getX(), player.getY());
