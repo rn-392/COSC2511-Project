@@ -98,12 +98,23 @@ public class App {
      * @param map    the game map object
      */
     private static void processCommand(String input, Player player, GameMap map) {
+        Location currentLocation = map.getLocation(player.getX(), player.getY());
         switch (input.toLowerCase()) {
             case "n" -> player.moveNorth();
             case "s" -> player.moveSouth();
             case "e" -> player.moveEast();
             case "w" -> player.moveWest();
             case "map" -> map.printMap(player);
+            case "look" -> {
+                if (currentLocation.hasItem()) {
+                    System.out.println("This location contains: ");
+                } else {
+                    System.out.println("There are no items at this location.");
+                }
+                if (currentLocation.isHostile()) {
+                    System.out.println("Warning: This location is hostile!");
+                }
+            }
             case "?", "help" -> {
                 System.out.println("Available commands:");
                 System.out.println("n / s / e / w - Move north, south, east, west");
