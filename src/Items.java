@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+//Contains both Items and Inventory classes
+
 //@georgethodis
 public class Items {
     private String name;
@@ -18,9 +22,10 @@ public class Items {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Items[] items = new Items[5];
+        ArrayList<Items> inventory = new ArrayList<>(); //creates inventory array 
         boolean[] pickedUp = new boolean[5];
 
-        // Initialize items
+        // Picking up items
         for (int i = 0; i < items.length; i++) {
             items[i] = new Items("Rocket Piece " + (i + 1));
         }
@@ -39,6 +44,16 @@ public class Items {
             }
         }
 
+        System.out.println("\nYour Inventory:");
+        if (inventory.isEmpty()){
+            System.out.println("Your inventory is empty. Completely.");
+        } else {
+            for(Items item : inventory) {
+                System.out.println(" - " + item.getName());
+            }
+        }
+
         scanner.close();
-    }
+    }    
+
 }
