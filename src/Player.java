@@ -1,3 +1,4 @@
+
 /**
  * This class represents a player in the game.
  * The player can move around the game map within defined boundaries.
@@ -14,6 +15,10 @@ public class Player {
      * The y-coordinate of the player's position.
      */
     private int y;
+
+    private double health;
+
+    private String playerName;
 
     /**
      * Constructor to initialize the player's starting position at the center of the
@@ -67,6 +72,10 @@ public class Player {
             x--;
         else
             System.out.println("Can't go further west.");
+    }
+
+    public void setName(String name) {
+        this.playerName = name;
     }
 
     /**
