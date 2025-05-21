@@ -73,6 +73,10 @@ public class App {
         System.out.println("\n\t\t\t\t\t\t\tPress q to quit");
     }
 
+    /**
+     * Displays the game instructions to the player.
+     * Shows available commands and how to interact with the game.
+     */
     private static void displayGameInstructions() {
         System.out.println("\n=== GAME INSTRUCTIONS ===");
         System.out.println("Type n/s/e/w to move in that direction.");
@@ -85,6 +89,14 @@ public class App {
         System.out.println("=========================\n");
     }
 
+    /**
+     * Processes a user command and updates the game state accordingly.
+     * Handles movement, map display, help, quitting, and invalid input.
+     *
+     * @param input  the command entered by the user
+     * @param player the player object representing the current player
+     * @param map    the game map object
+     */
     private static void processCommand(String input, Player player, GameMap map) {
         switch (input.toLowerCase()) {
             case "n" -> player.moveNorth();
