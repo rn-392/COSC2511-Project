@@ -13,6 +13,8 @@ public class Location {
      */
     private final String description;
 
+    private String longDescription;
+
     /**
      * Indicates whether the location contains an item.
      */
@@ -22,6 +24,10 @@ public class Location {
      * Indicates whether the location is hostile.
      */
     private boolean isHostile;
+
+    private Items item;
+
+    private boolean eventTriggered;
 
     /**
      * Constructor to initialize the location with a name and description.
@@ -34,6 +40,9 @@ public class Location {
         this.description = description;
         this.hasItem = false; // Default value: no item.
         this.isHostile = false; // Default value: not hostile.
+        this.eventTriggered = false;
+        this.item = null;
+        this.longDescription = "";
     }
 
     /**
@@ -45,6 +54,10 @@ public class Location {
         return description;
     }
 
+    public String getLongDescription() {
+        return longDescription;
+    }
+
     /**
      * Sets whether the location contains an item.
      *
@@ -52,6 +65,11 @@ public class Location {
      */
     public void setHasItem(boolean value) {
         this.hasItem = value;
+    }
+
+    public void setItem(Items item) {
+        this.item = item;
+        this.hasItem = item != null;
     }
 
     /**
@@ -63,6 +81,10 @@ public class Location {
         return hasItem;
     }
 
+    public Items getItem() {
+        return item;
+    }
+
     /**
      * Sets whether the location is hostile.
      *
@@ -70,6 +92,10 @@ public class Location {
      */
     public void setHostile(boolean value) {
         this.isHostile = value;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
     }
 
     /**
@@ -81,6 +107,14 @@ public class Location {
         return isHostile;
     }
 
+    public boolean isEventTriggered() {
+        return eventTriggered;
+    }
+
+    public void triggerEvent() {
+        this.eventTriggered = true;
+    }
+
     /**
      * Returns the name of the location.
      *
@@ -89,4 +123,5 @@ public class Location {
     public String getName() {
         return name;
     }
+
 }

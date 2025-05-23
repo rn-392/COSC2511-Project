@@ -28,6 +28,8 @@ public class Player {
         // start in center of map
         this.x = 2;
         this.y = 2;
+        this.health = 100;
+        this.playerName = "Unknown Traveler";
     }
 
     /**
@@ -78,6 +80,14 @@ public class Player {
         this.playerName = name;
     }
 
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public String getName() {
+        return playerName;
+    }
+
     /**
      * Gets the x-coordinate of the player's position.
      *
@@ -94,5 +104,9 @@ public class Player {
      */
     public int getY() {
         return y;
+    }
+
+    public double getHealth() {
+        return health;
     }
 }
