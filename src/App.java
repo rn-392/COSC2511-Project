@@ -24,14 +24,14 @@ public class App {
         while (!gameStart) {
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
-            if (input.equals("1")) {
-                gameStart = true;
-            } else if (input.equalsIgnoreCase("q")) {
-                System.out.println("Quitting...");
-                scanner.close();
-                return;
-            } else {
-                System.out.println("Invalid input. Press 1 to start or q to quit.");
+            switch (input.toLowerCase()) {
+                case "1" -> gameStart = true;
+                case "q" -> {
+                    System.out.println("Quitting...");
+                    scanner.close();
+                    return;
+                }
+                default -> System.out.println("Invalid input. Press 1 to start or q to quit.");
             }
         }
         // get player name
@@ -154,6 +154,16 @@ public class App {
                 System.out.println();
 
                 System.out.println(currentLocation.getLongDescription());
+            }
+            case "take" -> {
+                if (currentLocation.hasItem()) {
+                    Items item = currentLocation.getItem();
+                    player.addItem(item);
+                    currentLocation.setItem(null); // Remove from location
+                    System.out.println("You picked up: " + item.getName());
+                } else {
+                    System.out.println("Nothing to take here.");
+                }
             }
             case "?", "help" -> {
                 System.out.println("Available commands:");

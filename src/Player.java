@@ -100,9 +100,19 @@ public class Player {
         inventory.add(item);
     }
 
-    private boolean playerHasItem(Player player, Items target) {
-        for (Items item : player.getInventory()) {
-            if (item.getName().equals(target.getName())) {
+    public boolean hasItem(String itemName) {
+        for (Items item : inventory) {
+            if (item.getName().equals(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeItem(String itemName) {
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getName().equals(itemName)) {
+                inventory.remove(i);
                 return true;
             }
         }
