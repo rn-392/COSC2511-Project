@@ -29,6 +29,8 @@ public class Location {
 
     private boolean eventTriggered;
 
+    private combatCharacters character;
+
     /**
      * Constructor to initialize the location with a name and description.
      *
@@ -98,6 +100,10 @@ public class Location {
         this.longDescription = longDescription;
     }
 
+    public void setCharacter(combatCharacters character) {
+        this.character = character;
+    }
+
     /**
      * Checks if the location is hostile.
      *
@@ -122,6 +128,10 @@ public class Location {
      */
     public String getName() {
         return name;
+    }
+
+    public combatCharacters getCharacter() {
+        return character;
     }
 
 }

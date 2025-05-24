@@ -1,31 +1,46 @@
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * This class represents a player in the game.
- * The player can move around the game map within defined boundaries.
+ * Represents a player in the game.
+ * The player has a name, health, position on the map, and an inventory of
+ * items.
+ * The player can move in cardinal directions within the game’s 5x5 grid.
  * 
  * @author Ricky Nguyen
  */
 public class Player {
+
     /**
-     * The x-coordinate of the player's position.
+     * The x-coordinate of the player's position (horizontal).
      */
     private int x;
 
     /**
-     * The y-coordinate of the player's position.
+     * The y-coordinate of the player's position (vertical).
      */
     private int y;
 
+    /**
+     * The player's current health value.
+     */
     private double health;
 
+    /**
+     * The name of the player.
+     */
     private String playerName;
 
     /**
-     * Constructor to initialize the player's starting position at the center of the
-     * map.
+     * The player's inventory of items.
+     */
+    private final ArrayList<Items> inventory = new ArrayList<>();
+
+    /**
+     * Creates a new player starting at the center of the map with default health
+     * and name.
      */
     public Player() {
-        // start in center of map
         this.x = 2;
         this.y = 2;
         this.health = 100;
@@ -33,80 +48,141 @@ public class Player {
     }
 
     /**
-     * Moves the player north (increasing the y-coordinate) if within bounds.
-     * Prints a message if the player cannot move further north.
+     * Moves the player north (up the map), if within bounds.
      */
     public void moveNorth() {
-        if (y < 4)
+        if (y < 4) {
             y++;
-        else
+        } else {
             System.out.println("Can't go further North.");
+        }
     }
 
     /**
-     * Moves the player south (decreasing the y-coordinate) if within bounds.
-     * Prints a message if the player cannot move further south.
+     * Moves the player south (down the map), if within bounds.
      */
     public void moveSouth() {
-        if (y > 0)
+        if (y > 0) {
             y--;
-        else
+        } else {
             System.out.println("Can't go further south.");
+        }
     }
 
     /**
-     * Moves the player east (increasing the x-coordinate) if within bounds.
-     * Prints a message if the player cannot move further east.
+     * Moves the player east (right on the map), if within bounds.
      */
     public void moveEast() {
-        if (x < 4)
+        if (x < 4) {
             x++;
-        else
+        } else {
             System.out.println("Can't go further east.");
+        }
     }
 
     /**
-     * Moves the player west (decreasing the x-coordinate) if within bounds.
-     * Prints a message if the player cannot move further west.
+     * Moves the player west (left on the map), if within bounds.
      */
     public void moveWest() {
-        if (x > 0)
+        if (x > 0) {
             x--;
-        else
+        } else {
             System.out.println("Can't go further west.");
-    }
-
-    public void setName(String name) {
-        this.playerName = name;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    public String getName() {
-        return playerName;
+        }
     }
 
     /**
-     * Gets the x-coordinate of the player's position.
+     * Adds an item to the player's inventory.
      *
-     * @return The x-coordinate of the player's position.
+     * @param item The item to be added.
+     */
+    public void addItem(Items item) {
+        inventory.add(item);
+    }
+
+    private boolean playerHasItem(Player player, Items target) {
+        for (Items item : player.getInventory()) {
+            if (item.getName().equals(target.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets a list of all items in the player's inventory.
+     *
+     * @return A list of the player's inventory items.
+     */
+    public List<Items> getInventory() {
+        return inventory;
+    }
+
+    /**
+     * Prints a list of items currently in the player's inventory.
+     */
+    public void listInventory() {
+        if (inventory.isEmpty()) {
+            System.out.println("Your inventory is empty.");
+        } else {
+            System.out.println("Your Inventory:");
+            for (Items item : inventory) {
+                System.out.println(" - " + item.getName());
+            }
+        }
+    }
+
+    /**
+     * Gets the player's x-coordinate position.
+     *
+     * @return The x-coordinate.
      */
     public int getX() {
         return x;
     }
 
     /**
-     * Gets the y-coordinate of the player's position.
+     * Gets the player's y-coordinate position.
      *
-     * @return The y-coordinate of the player's position.
+     * @return The y-coordinate.
      */
     public int getY() {
         return y;
     }
 
+    /**
+     * Gets the player's current health.
+     *
+     * @return The health value.
+     */
     public double getHealth() {
         return health;
+    }
+
+    /**
+     * Gets the player's name.
+     *
+     * @return The player's name.
+     */
+    public String getName() {
+        return playerName;
+    }
+
+    /**
+     * Sets the player's name.
+     *
+     * @param name The new player name.
+     */
+    public void setName(String name) {
+        this.playerName = name;
+    }
+
+    /**
+     * Sets the player's health.
+     *
+     * @param health The new health value.
+     */
+    public void setHealth(double health) {
+        this.health = health;
     }
 }

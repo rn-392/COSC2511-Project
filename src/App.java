@@ -15,6 +15,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         GameMap map = new GameMap();
         Player player = new Player();
+
         boolean gameStart = false;
 
         displayWelcomeBanner();
@@ -51,7 +52,7 @@ public class App {
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
             System.out.println();
-            processCommand(input, player, map);
+            processCommand(input, player, map, scanner);
             System.out.println();
 
         }
@@ -87,6 +88,7 @@ public class App {
         System.out.println("Type 'take' to pick up an item.");
         System.out.println("Type 'inv' to check your inventory.");
         System.out.println("Type 'map' to see the map.");
+        System.out.println("Type 'solve' to attempt a puzzle at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'q' to quit the game.");
         System.out.println("==============================================\n");
@@ -106,6 +108,10 @@ public class App {
         System.out.println("\nLocation: " + loc.getName() + " (" + player.getX() + ", " + player.getY() + ")");
         System.out.println(loc.getDescription());
         System.out.println();
+        if (loc.isHostile()) {
+            System.out.println("Warning: This location is hostile!");
+            System.out.println();
+        }
     }
 
     /**
@@ -116,7 +122,7 @@ public class App {
      * @param player the player object representing the current player
      * @param map    the game map object
      */
-    private static void processCommand(String input, Player player, GameMap map) {
+    private static void processCommand(String input, Player player, GameMap map, Scanner scanner) {
         Location currentLocation = map.getLocation(player.getX(), player.getY());
         switch (input.toLowerCase()) {
             case "n" -> {
@@ -136,6 +142,7 @@ public class App {
                 printCurrentLocation(player, map);
             }
             case "map" -> map.printMap(player);
+            case "inv" -> player.listInventory();
             case "look" -> {
                 if (currentLocation.hasItem()) {
                     System.out.println("You examine your surroundings more carefully...");
@@ -145,23 +152,44 @@ public class App {
                     System.out.println("There are no items at this location.");
                 }
                 System.out.println();
-                if (currentLocation.isHostile()) {
-                    System.out.println("Warning: This location is hostile!");
-                    System.out.println();
-                }
+
                 System.out.println(currentLocation.getLongDescription());
             }
             case "?", "help" -> {
                 System.out.println("Available commands:");
                 System.out.println("n / s / e / w - Move north, south, east, west");
+                System.out.println("look - Examine your surroundings");
+                System.out.println("take - Pick up an item");
                 System.out.println("map - Display the game map");
                 System.out.println("inv - Show your inventory");
+                System.out.println("solve - Attempt a puzzle at your location");
                 System.out.println("help / ? - Show this help menu");
                 System.out.println("q - Quit the game");
             }
             case "q" -> {
                 System.out.println("Quitting...");
                 System.exit(0);
+            }
+            case "solve" -> {
+                int x = player.getX();
+                int y = player.getY();
+
+                // MONOLITH PUZZLE (3,1)
+                if (x == 3 && y == 1) {
+                    System.out.println("The Monolith whispers a riddle:");
+                    System.out.println(
+                            "\"I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?\"");
+                    System.out.print("Your answer: ");
+                    String answer = scanner.nextLine().trim().toLowerCase();
+
+                    if (answer.equals("echo")) {
+                        System.out.println();
+                        System.out.println("The Monolith hums approvingly. You have solved the riddle!");
+                        // You can add logic here to reward the player
+                    } else {
+                        System.out.println("That is not correct. The Monolith remains silent.");
+                    }
+                }
             }
             default -> System.out.println("Invalid input.");
         }
