@@ -9,7 +9,8 @@ public class App {
     /**
      * The main method to start the game.
      *
-     * 
+     * @param args Command-line arguments (not used).
+     * @throws Exception If an unexpected error occurs during execution.
      */
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -58,6 +59,9 @@ public class App {
         }
     }
 
+    /**
+     * Displays the welcome banner for the game.
+     */
     private static void displayWelcomeBanner() {
         // Title of Game using Ascii - christ
         System.out.println(
@@ -79,7 +83,8 @@ public class App {
 
     /**
      * Displays the game instructions to the player.
-     * Shows available commands and how to interact with the game.
+     *
+     * @param player The player object to personalize the instructions.
      */
     private static void displayGameInstructions(Player player) {
         System.out.printf("Welcome to GALACTIC DAWN, %s!\n", player.getName());
@@ -107,6 +112,12 @@ public class App {
 
     }
 
+    /**
+     * Prints the current location of the player on the map.
+     *
+     * @param player The player object representing the current player.
+     * @param map    The game map object.
+     */
     private static void printCurrentLocation(Player player, GameMap map) {
         Location loc = map.getLocation(player.getX(), player.getY());
         System.out.println();
@@ -123,9 +134,10 @@ public class App {
      * Processes a user command and updates the game state accordingly.
      * Handles movement, map display, help, quitting, and invalid input.
      *
-     * @param input  the command entered by the user
-     * @param player the player object representing the current player
-     * @param map    the game map object
+     * @param input   The command entered by the user.
+     * @param player  The player object representing the current player.
+     * @param map     The game map object.
+     * @param scanner The scanner object for reading user input.
      */
     private static void processCommand(String input, Player player, GameMap map, Scanner scanner) {
         Location currentLocation = map.getLocation(player.getX(), player.getY());
