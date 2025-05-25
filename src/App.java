@@ -45,7 +45,7 @@ public class App {
         }
         player.setName(playerName);
 
-        displayGameInstructions();
+        displayGameInstructions(player);
 
         while (gameStart) {
 
@@ -81,7 +81,18 @@ public class App {
      * Displays the game instructions to the player.
      * Shows available commands and how to interact with the game.
      */
-    private static void displayGameInstructions() {
+    private static void displayGameInstructions(Player player) {
+        System.out.printf("Welcome to GALACTIC DAWN, %s!\n", player.getName());
+        System.out.println();
+        System.out.println("==================== BRIEF ===================");
+        System.out.println("You awaken in empty space aboard a crippled spacecraft.");
+        System.out.println("Its warp drive is obliterated and the stars are unreachable.");
+        System.out.println("To escape, you must explore nearby planets, retrieve");
+        System.out.println("four warp drive fragments, and defeat Emperor Poutine,");
+        System.out.println("the tyrant whose corruption locks down the system.");
+        System.out.printf("The Rift Gate awaits, %s.\n", player.getName());
+        System.out.println("===============================================");
+        System.out.println();
         System.out.println("============= GAME INSTRUCTIONS =============");
         System.out.println("Type n/s/e/w to move in that direction.");
         System.out.println("Type 'look' to examine your surroundings.");
@@ -91,15 +102,9 @@ public class App {
         System.out.println("Type 'solve' to attempt a puzzle at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'q' to quit the game.");
-        System.out.println("==============================================\n");
-        System.out.println("\n================== BRIEF ==================");
-        System.out.println("You awaken in empty space aboard a crippled spacecraft.");
-        System.out.println("Its warp drive is obliterated and the stars are unreachable.");
-        System.out.println("To escape, you must explore nearby planets, retrieve");
-        System.out.println("four warp drive fragments, and defeat Emperor Poutine,");
-        System.out.println("the tyrant whose corruption locks down the system.");
-        System.out.println("Trade, fight, solve, and survive. The Rift Gate awaits.");
-        System.out.println("===========================================\n");
+        System.out.println("==============================================");
+        System.out.println();
+
     }
 
     private static void printCurrentLocation(Player player, GameMap map) {
@@ -147,7 +152,7 @@ public class App {
                 if (currentLocation.hasItem()) {
                     System.out.println("You examine your surroundings more carefully...");
                     System.out.println();
-                    System.out.println("You notice: " + currentLocation.getItem().getName());
+                    System.out.println("You notice: " + currentLocation.getItemAtLoc().getName());
                 } else {
                     System.out.println("There are no items at this location.");
                 }
@@ -157,7 +162,7 @@ public class App {
             }
             case "take" -> {
                 if (currentLocation.hasItem()) {
-                    Items item = currentLocation.getItem();
+                    Items item = currentLocation.getItemAtLoc();
                     player.addItem(item);
                     currentLocation.setItem(null); // Remove from location
                     System.out.println("You picked up: " + item.getName());
@@ -184,7 +189,7 @@ public class App {
                 int x = player.getX();
                 int y = player.getY();
 
-                // MONOLITH PUZZLE (3,1)
+                // monolith puzzle
                 if (x == 3 && y == 1) {
                     System.out.println("The Monolith whispers a riddle:");
                     System.out.println(
@@ -199,6 +204,8 @@ public class App {
                     } else {
                         System.out.println("That is not correct. The Monolith remains silent.");
                     }
+                } else {
+                    System.out.println("There is no puzzle to solve here.");
                 }
             }
             default -> System.out.println("Invalid input.");
