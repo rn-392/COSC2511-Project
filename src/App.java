@@ -216,11 +216,9 @@ public class App {
             }
             case "use" -> {
                 handleUse(player, map, scanner);
-                break;
             }
             case "solve" -> {
-                handleSolve(player, scanner);
-                break;
+                handleSolve(player, scanner, map);
             }
 
             case "q" -> {
@@ -298,34 +296,53 @@ public class App {
     }
 
     /**
-     * Attempts to solve a puzzle at the player's current location.
-     * <p>
-     * - At (3,1): presents the Monolith riddle and awards a Gate Key on success.
-     * - At (1,1): presents the Strix Mastermind riddle and awards a Cryo Core on
-     * success.
-     * - Otherwise: informs the player there is no puzzle here.
+     * Handles the “solve” command by checking for and attempting the puzzle
+     * at the player’s current coordinates.
      *
-     * @param player  The player object to grant rewards upon solving.
-     * @param scanner The scanner for reading the player's answer.
+     * <ul>
+     * <li>At (3,1): Presents the Monolith riddle. On a correct answer (echo),
+     * grants a Gate Key and marks the puzzle as solved.</li>
+     * <li>At (1,1): Presents the Strix Mastermind puzzle. On a correct answer
+     * (seven), grants a Cryo Core and marks the puzzle as solved.</li>
+     * <li>Otherwise: Informs the player that there is no puzzle at this
+     * location.</li>
+     * </ul>
+     *
+     * If a puzzle has already been solved at the location, the player is notified
+     * and no further action is taken.
+     *
+     * @param player  the Player whose inventory may be updated with rewards
+     * @param scanner the Scanner used to read the player’s answer
+     * @param map     the GameMap used to determine the player’s current Location
      */
-    private static void handleSolve(Player player, Scanner scanner) {
+    private static void handleSolve(Player player, Scanner scanner, GameMap map) {
         int x = player.getX(), y = player.getY();
+        Location loc = map.getLocation(x, y);
 
         if (x == 3 && y == 1) {
+            if (loc.isEventTriggered()) {
+                System.out.println("You have already solved the Monolith's riddle.");
+                return;
+            }
             System.out.println("The Monolith whispers a riddle:");
             System.out.println("""
-                    "I speak without a mouth and hear without ears.
-                     I have nobody, but I come alive with wind. What am I?"
+                    "I speak without a mouth and hear without ears."
+                    "I have nobody, but I come alive with wind. What am I?"
                     """);
             System.out.print("Your answer: ");
             if (scanner.nextLine().trim().equalsIgnoreCase("echo")) {
                 System.out.println("The Monolith glows brightly. Correct!");
                 player.addItem(new Items("Gate Key"));
                 System.out.println("You have gained: Gate Key");
+                loc.triggerEvent();
             } else {
                 System.out.println("That is not correct. The Monolith remains silent.");
             }
         } else if (x == 1 && y == 1) {
+            if (loc.isEventTriggered()) {
+                System.out.println("You have already solved the Strix Mastermind's puzzle.");
+                return;
+            }
             System.out.println("The Strix Mastermind challenges you:");
             System.out.println("""
                     "I am an odd number. Take away one letter and I become even. What number am I?"
@@ -335,6 +352,7 @@ public class App {
                 System.out.println("Correct! You have solved the puzzle.");
                 player.addItem(new Items("Cryo Core"));
                 System.out.println("You have gained: Cryo Core");
+                loc.triggerEvent();
             } else {
                 System.out.println("Incorrect. The Strix Mastermind laughs.");
             }
