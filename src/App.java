@@ -109,6 +109,7 @@ public class App {
         System.out.println("Type 'inv' to check your inventory.");
         System.out.println("Type 'map' to see the map.");
         System.out.println("Type 'solve' to attempt a puzzle at your location.");
+        System.out.println("Type 'use' to use an item at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'q' to quit the game.");
         System.out.println("==============================================");
@@ -125,13 +126,12 @@ public class App {
     private static void printCurrentLocation(Player player, GameMap map) {
         Location loc = map.getLocation(player.getX(), player.getY());
         System.out.println();
-        System.out.println("\nLocation: " + loc.getName() + " (" + player.getX() + ", " + player.getY() + ")");
+        System.out.println("\nLocation: " +
+                (loc.isHostile() ? "**[HOSTILE]** " : "") +
+                loc.getName() + " (" + player.getX() + ", " + player.getY() + ")");
         System.out.println(loc.getDescription());
         System.out.println();
-        if (loc.isHostile()) {
-            System.out.println("**Warning: This location is hostile!**");
-            System.out.println();
-        }
+
     }
 
     /**
@@ -189,8 +189,7 @@ public class App {
                     System.out.println("You examine your surroundings more carefully...");
                     System.out.println();
                     System.out.println("You notice: " + currentLocation.getItemAtLoc().getName());
-                } else {
-                    System.out.println("There are no items at this location.");
+
                 }
                 System.out.println();
 
@@ -214,12 +213,31 @@ public class App {
                 System.out.println("map - Display the game map");
                 System.out.println("inv - Show your inventory");
                 System.out.println("solve - Attempt a puzzle at your location");
+                System.out.println("use - Use an item at your location");
                 System.out.println("help / ? - Show this help menu");
                 System.out.println("q - Quit the game");
             }
-            case "q" -> {
-                System.out.println("Quitting...");
-                System.exit(0);
+            case "use" -> {
+                if (player.getX() == 2 && player.getY() == 3) {
+                    if (currentLocation.isEventTriggered()) {
+                        System.out.println("You have already done this.");
+                    } else if (player.hasItem("Cryo Core")) {
+                        currentLocation.triggerEvent();
+                        currentLocation.setLongDescription("""
+                                The AI terminal is fully powered, displaying active system readouts.
+                                The armory access lights are green, and the secured doors are wide open.
+                                """);
+                        player.removeItem("Cryo Core");
+                        System.out.println("You use the Cryo Core to power up the AI terminal.");
+                        System.out.println("The room hums to life as the armory doors slide open.");
+                        System.out.println("You have found: Laser Rifle");
+                        player.addItem(new Items("Laser Rifle"));
+                    } else {
+                        System.out.println("You need something to power this terminal...");
+                    }
+                } else {
+                    System.out.println("You can't use anything here.");
+                }
             }
             case "solve" -> {
                 int x = player.getX();
@@ -249,8 +267,36 @@ public class App {
                 } else {
                     System.out.println("There is no puzzle to solve here.");
                 }
+
+                // Strix Mastermind puzzle
+                if (x == 1 && y == 1) {
+                    System.out.println("The Strix Mastermind challenges you to a logic puzzle:");
+                    System.out.println(
+                            "\"I am an odd number. Take away one letter and I become even. What number am I?\"");
+                    System.out.print("Your answer: ");
+                    String answer = scanner.nextLine().trim().toLowerCase();
+
+                    if (answer.equals("seven")) {
+                        System.out.println();
+                        System.out.println("The Strix Mastermind nods in approval. You have solved the puzzle!");
+                        player.addItem(new Items("Cryo Core"));
+                        System.out.println("You have gained: Cryo Core");
+                    } else {
+                        System.out.println();
+                        if (random.nextBoolean()) {
+                            System.out.println("INCORRECT! The Strix Mastermind laughs at your stupidity.");
+                        } else {
+                            System.out.println("That is not correct. The Strix Mastermind awaits the right answer.");
+                        }
+
+                    }
+                }
             }
             default -> System.out.println("Invalid input.");
+            case "q" -> {
+                System.out.println("Quitting...");
+                System.exit(0);
+            }
         }
     }
 }

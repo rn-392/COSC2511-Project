@@ -43,7 +43,7 @@ public class GameMap {
                                 "Strix",
                                 "Freezing winds howl across a barren tundra.");
                 strix.setLongDescription(
-                                "Mastermind lurks within a ruined facility.\nA puzzle locks away something cold and vital: the Cryo Core.\nVictory yields a warp drive fragment.");
+                                "Mastermind lurks within a ruined facility.\nEntertain his musings for a special reward.\nVictory yields a warp drive fragment.");
                 strix.setHostile(true);
                 map[1][1] = strix;
 
