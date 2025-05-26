@@ -67,8 +67,9 @@ public class GameMap {
                                 "Asteroid",
                                 "Jagged rocks surround a mining site carved into the asteroid's crust.");
                 asteroid.setLongDescription(
-                                "Laser drills hum quietly.\nYou discover a usable Ore Chunk left behind in the wreckage.");
+                                "Laser drills hum quietly.\nRich ore veins glint beneath the surface, promising valuable resources.");
                 asteroid.setHasItem(true);
+                asteroid.setItem(new Items("Ore Chunk"));
                 map[4][2] = asteroid;
 
                 Location jungleMoon = new Location(

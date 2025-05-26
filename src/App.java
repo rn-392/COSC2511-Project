@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -6,6 +7,8 @@ import java.util.Scanner;
  * gameplay.
  */
 public class App {
+    private static Random random = new Random();
+
     /**
      * The main method to start the game.
      *
@@ -45,6 +48,7 @@ public class App {
             }
         }
         player.setName(playerName);
+        System.out.println();
 
         displayGameInstructions(player);
 
@@ -125,7 +129,7 @@ public class App {
         System.out.println(loc.getDescription());
         System.out.println();
         if (loc.isHostile()) {
-            System.out.println("Warning: This location is hostile!");
+            System.out.println("**Warning: This location is hostile!**");
             System.out.println();
         }
     }
@@ -144,18 +148,38 @@ public class App {
         switch (input.toLowerCase()) {
             case "n" -> {
                 player.moveNorth();
+                if (random.nextBoolean()) {
+                    System.out.println("Your ship moves forward to the north.");
+                } else {
+                    System.out.println("You guide your ship northward through space.");
+                }
                 printCurrentLocation(player, map);
             }
             case "s" -> {
                 player.moveSouth();
+                if (random.nextBoolean()) {
+                    System.out.println("Your ship moves forward to the south.");
+                } else {
+                    System.out.println("You guide your ship southward through space.");
+                }
                 printCurrentLocation(player, map);
             }
             case "e" -> {
                 player.moveEast();
+                if (random.nextBoolean()) {
+                    System.out.println("Your ship moves forward to the east.");
+                } else {
+                    System.out.println("You guide your ship eastward through space.");
+                }
                 printCurrentLocation(player, map);
             }
             case "w" -> {
                 player.moveWest();
+                if (random.nextBoolean()) {
+                    System.out.println("Your ship moves forward to the west.");
+                } else {
+                    System.out.println("You guide your ship westward through space.");
+                }
                 printCurrentLocation(player, map);
             }
             case "map" -> map.printMap(player);
@@ -175,7 +199,7 @@ public class App {
             case "take" -> {
                 if (currentLocation.hasItem()) {
                     Items item = currentLocation.getItemAtLoc();
-                    player.addItem(item);
+                    player.addItem(item); // add to inventory
                     currentLocation.setItem(null); // Remove from location
                     System.out.println("You picked up: " + item.getName());
                 } else {
@@ -211,8 +235,14 @@ public class App {
 
                     if (answer.equals("echo")) {
                         System.out.println();
-                        System.out.println("The Monolith hums approvingly. You have solved the riddle!");
-                        // You can add logic here to reward the player
+                        if (random.nextBoolean()) {
+                            System.out.println("The Monolith hums approvingly. You have solved the riddle!");
+                        } else {
+                            System.out.println("The Monolith glows brightly. You have solved the riddle!");
+                        }
+                        // add logic here to reward the player
+                        player.addItem(new Items("Gate Key"));
+                        System.out.println("You have gained: Gate Key");
                     } else {
                         System.out.println("That is not correct. The Monolith remains silent.");
                     }
