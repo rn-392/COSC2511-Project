@@ -1,3 +1,6 @@
+
+import java.util.Random;
+
 /**
  * This class represents the game map, which consists of a grid of locations.
  * * @author Ricky Nguyen
@@ -16,9 +19,19 @@ public class GameMap {
          */
         public GameMap() {
                 map = new Location[5][5];
+                Random random = new java.util.Random();
                 for (int i = 0; i < 5; i++) {
                         for (int j = 0; j < 5; j++) {
                                 map[i][j] = new Location("Empty Space", "You are drifting through empty space.");
+                                int variation = random.nextInt(3);
+                                switch (variation) {
+                                        case 0 -> map[i][j].setLongDescription(
+                                                        "There is nothing of interest here. Just the cold, silent void of space.");
+                                        case 1 -> map[i][j].setLongDescription(
+                                                        "Just a vast, empty void. You see nothing but darkness and distant stars.");
+                                        case 2 -> map[i][j].setLongDescription(
+                                                        "You drift through space with nothing but your own breath and the hull’s hum for company.");
+                                }
                         }
                 }
 

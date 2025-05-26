@@ -7,7 +7,7 @@ import java.util.Scanner;
  * gameplay.
  */
 public class App {
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     /**
      * The main method to start the game.
@@ -192,7 +192,6 @@ public class App {
 
                 }
                 System.out.println();
-
                 System.out.println(currentLocation.getLongDescription());
             }
             case "take" -> {
@@ -218,6 +217,7 @@ public class App {
                 System.out.println("q - Quit the game");
             }
             case "use" -> {
+                // space station
                 if (player.getX() == 2 && player.getY() == 3) {
                     if (currentLocation.isEventTriggered()) {
                         System.out.println("You have already done this.");
@@ -237,6 +237,27 @@ public class App {
                     }
                 } else {
                     System.out.println("You can't use anything here.");
+                }
+                // rift gate usage
+                if (player.getX() == 0 && player.getY() == 0) {
+                    if (player.hasItem("Gate Key")) {
+                        System.out.println("You use the Gate Key to activate the Rift Gate.");
+                        System.out.println("A blinding light engulfs your ship as the gate powers up...");
+                        System.out.println("You are about to face the boss. Are you sure you want to continue? (y/n)");
+
+                        String confirm = scanner.nextLine().trim().toLowerCase();
+
+                        if (confirm.equals("y") || confirm.equals("yes")) {
+                            System.out.println("Your ship is engulfed by a blinding light as the Rift Gate opens...");
+                            // combat
+
+                            System.exit(0);
+                        } else {
+                            System.out.println("You step back from the Rift Gate, gathering your courage.");
+                        }
+                    } else {
+                        System.out.println("The Rift Gate is locked. You need something to activate it.");
+                    }
                 }
             }
             case "solve" -> {
