@@ -222,19 +222,19 @@ public class App {
                 handleSolve(player, scanner);
                 break;
             }
-            default -> System.out.println("Invalid input.");
+
             case "q" -> {
                 System.out.println("Are you sure you want to quit? (y/n):");
                 String confirm = scanner.nextLine().trim().toLowerCase();
                 if (confirm.equals("y")) {
                     System.out.println("Thanks for playing. Goodbye!");
-                    scanner.close();
-                    gameStart = true;
+                    System.exit(0);
                 } else {
                     System.out.println("Continuing game...");
                 }
-
             }
+            default -> System.out.println("Invalid input.");
+
         }
     }
 
