@@ -189,7 +189,6 @@ public class App {
                     System.out.println("You examine your surroundings more carefully...");
                     System.out.println();
                     System.out.println("You notice: " + currentLocation.getItemAtLoc().getName());
-
                 }
                 System.out.println();
                 System.out.println(currentLocation.getLongDescription());
@@ -217,107 +216,98 @@ public class App {
                 System.out.println("q - Quit the game");
             }
             case "use" -> {
-                // space station
-                if (player.getX() == 2 && player.getY() == 3) {
-                    if (currentLocation.isEventTriggered()) {
-                        System.out.println("You have already done this.");
-                    } else if (player.hasItem("Cryo Core")) {
-                        currentLocation.triggerEvent();
-                        currentLocation.setLongDescription("""
-                                The AI terminal is fully powered, displaying active system readouts.
-                                The armory access lights are green, and the secured doors are wide open.
-                                """);
-                        player.removeItem("Cryo Core");
-                        System.out.println("You use the Cryo Core to power up the AI terminal.");
-                        System.out.println("The room hums to life as the armory doors slide open.");
-                        System.out.println("You have found: Laser Rifle");
-                        player.addItem(new Items("Laser Rifle"));
-                    } else {
-                        System.out.println("You need something to power this terminal...");
-                    }
-                } else {
-                    System.out.println("You can't use anything here.");
-                }
-                // rift gate usage
-                if (player.getX() == 0 && player.getY() == 0) {
-                    if (player.hasItem("Gate Key")) {
-                        System.out.println("You use the Gate Key to activate the Rift Gate.");
-                        System.out.println("A blinding light engulfs your ship as the gate powers up...");
-                        System.out.println("You are about to face the boss. Are you sure you want to continue? (y/n)");
-
-                        String confirm = scanner.nextLine().trim().toLowerCase();
-
-                        if (confirm.equals("y") || confirm.equals("yes")) {
-                            System.out.println("Your ship is engulfed by a blinding light as the Rift Gate opens...");
-                            // combat
-
-                            System.exit(0);
-                        } else {
-                            System.out.println("You step back from the Rift Gate, gathering your courage.");
-                        }
-                    } else {
-                        System.out.println("The Rift Gate is locked. You need something to activate it.");
-                    }
-                }
+                handleUse(player, map, scanner);
+                break;
             }
             case "solve" -> {
-                int x = player.getX();
-                int y = player.getY();
-
-                // monolith puzzle
-                if (x == 3 && y == 1) {
-                    System.out.println("The Monolith whispers a riddle:");
-                    System.out.println(
-                            "\"I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?\"");
-                    System.out.print("Your answer: ");
-                    String answer = scanner.nextLine().trim().toLowerCase();
-
-                    if (answer.equals("echo")) {
-                        System.out.println();
-                        if (random.nextBoolean()) {
-                            System.out.println("The Monolith hums approvingly. You have solved the riddle!");
-                        } else {
-                            System.out.println("The Monolith glows brightly. You have solved the riddle!");
-                        }
-                        // add logic here to reward the player
-                        player.addItem(new Items("Gate Key"));
-                        System.out.println("You have gained: Gate Key");
-                    } else {
-                        System.out.println("That is not correct. The Monolith remains silent.");
-                    }
-                } else {
-                    System.out.println("There is no puzzle to solve here.");
-                }
-
-                // Strix Mastermind puzzle
-                if (x == 1 && y == 1) {
-                    System.out.println("The Strix Mastermind challenges you to a logic puzzle:");
-                    System.out.println(
-                            "\"I am an odd number. Take away one letter and I become even. What number am I?\"");
-                    System.out.print("Your answer: ");
-                    String answer = scanner.nextLine().trim().toLowerCase();
-
-                    if (answer.equals("seven")) {
-                        System.out.println();
-                        System.out.println("The Strix Mastermind nods in approval. You have solved the puzzle!");
-                        player.addItem(new Items("Cryo Core"));
-                        System.out.println("You have gained: Cryo Core");
-                    } else {
-                        System.out.println();
-                        if (random.nextBoolean()) {
-                            System.out.println("INCORRECT! The Strix Mastermind laughs at your stupidity.");
-                        } else {
-                            System.out.println("That is not correct. The Strix Mastermind awaits the right answer.");
-                        }
-
-                    }
-                }
+                handleSolve(player, scanner);
+                break;
             }
             default -> System.out.println("Invalid input.");
             case "q" -> {
                 System.out.println("Quitting...");
                 System.exit(0);
             }
+        }
+    }
+
+    private static void handleUse(Player player, GameMap map, Scanner scanner) {
+        int x = player.getX(), y = player.getY();
+        Location loc = map.getLocation(x, y);
+
+        // space station
+        if (x == 2 && y == 3) {
+            if (loc.isEventTriggered()) {
+                System.out.println("You have already done this.");
+            } else if (player.hasItem("Cryo Core")) {
+                loc.triggerEvent();
+                loc.setLongDescription("""
+                        The AI terminal is fully powered, displaying active system readouts.
+                        The armory access lights are green, and the secured doors are wide open.
+                        """);
+                player.removeItem("Cryo Core");
+                System.out.println("You use the Cryo Core to power up the AI terminal.");
+                System.out.println("The room hums to life as the armory doors slide open.");
+                System.out.println("You have found: Laser Rifle");
+                player.addItem(new Items("Laser Rifle"));
+            } else {
+                System.out.println("You need something to power this terminal...");
+            }
+
+            // rift gate
+        } else if (x == 0 && y == 0) {
+            if (player.hasItem("Gate Key")) {
+                System.out.println("You use the Gate Key to activate the Rift Gate.");
+                System.out.println("A blinding light engulfs your ship as the gate powers up...");
+                System.out.println("You are about to face the boss. Are you sure? (y/n)");
+                String ans = scanner.nextLine().trim().toLowerCase();
+                if (ans.equals("y")) {
+                    System.out.println("Your ship is engulfed by a blinding light...");
+                    System.exit(0);
+                } else {
+                    System.out.println("You step back from the Rift Gate.");
+                }
+            } else {
+                System.out.println("The Rift Gate is locked. You need something to activate it.");
+            }
+
+        } else {
+            System.out.println("There's nothing here you can use.");
+        }
+    }
+
+    private static void handleSolve(Player player, Scanner scanner) {
+        int x = player.getX(), y = player.getY();
+
+        if (x == 3 && y == 1) {
+            System.out.println("The Monolith whispers a riddle:");
+            System.out.println("""
+                    "I speak without a mouth and hear without ears.
+                     I have nobody, but I come alive with wind. What am I?"
+                    """);
+            System.out.print("Your answer: ");
+            if (scanner.nextLine().trim().equalsIgnoreCase("echo")) {
+                System.out.println("The Monolith glows brightly. Correct!");
+                player.addItem(new Items("Gate Key"));
+                System.out.println("You have gained: Gate Key");
+            } else {
+                System.out.println("That is not correct. The Monolith remains silent.");
+            }
+        } else if (x == 1 && y == 1) {
+            System.out.println("The Strix Mastermind challenges you:");
+            System.out.println("""
+                    "I am an odd number. Take away one letter and I become even. What number am I?"
+                    """);
+            System.out.print("Your answer: ");
+            if (scanner.nextLine().trim().equalsIgnoreCase("seven")) {
+                System.out.println("Correct! You have solved the puzzle.");
+                player.addItem(new Items("Cryo Core"));
+                System.out.println("You have gained: Cryo Core");
+            } else {
+                System.out.println("Incorrect. The Strix Mastermind laughs.");
+            }
+        } else {
+            System.out.println("There is no puzzle to solve here.");
         }
     }
 }
