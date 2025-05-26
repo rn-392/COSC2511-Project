@@ -8,6 +8,7 @@ import java.util.Scanner;
  */
 public class App {
     private static final Random random = new Random();
+    private static boolean gameStart = false;
 
     /**
      * The main method to start the game.
@@ -19,8 +20,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         GameMap map = new GameMap();
         Player player = new Player();
-
-        boolean gameStart = false;
 
         displayWelcomeBanner();
 
@@ -225,8 +224,16 @@ public class App {
             }
             default -> System.out.println("Invalid input.");
             case "q" -> {
-                System.out.println("Quitting...");
-                System.exit(0);
+                System.out.println("Are you sure you want to quit? (y/n):");
+                String confirm = scanner.nextLine().trim().toLowerCase();
+                if (confirm.equals("y")) {
+                    System.out.println("Thanks for playing. Goodbye!");
+                    scanner.close();
+                    gameStart = true;
+                } else {
+                    System.out.println("Continuing game...");
+                }
+
             }
         }
     }

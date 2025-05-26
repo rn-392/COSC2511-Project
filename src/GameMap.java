@@ -30,7 +30,7 @@ public class GameMap {
                                         case 1 -> map[i][j].setLongDescription(
                                                         "Just a vast, empty void. You see nothing but darkness and distant stars.");
                                         case 2 -> map[i][j].setLongDescription(
-                                                        "You drift through space with nothing but your own breath and the hull’s hum for company.");
+                                                        "You drift through space with nothing but your own breath and the ship's hum for company.");
                                 }
                         }
                 }
