@@ -231,6 +231,20 @@ public class App {
         }
     }
 
+    /**
+     * Attempts to use an item or trigger an event at the player's current location.
+     * <p>
+     * - At (2,3): powers up the AI terminal if the player has a Cryo Core.
+     * - At (0,0): activates the Rift Gate if the player has a Gate Key.
+     * - Otherwise: informs the player there is nothing to use here.
+     *
+     * @param player  The player object, whose inventory will be checked and
+     *                modified.
+     * @param map     The game map, used to retrieve and update the current
+     *                location.
+     * @param scanner The scanner for reading additional player input (e.g.,
+     *                confirmation).
+     */
     private static void handleUse(Player player, GameMap map, Scanner scanner) {
         int x = player.getX(), y = player.getY();
         Location loc = map.getLocation(x, y);
@@ -276,6 +290,17 @@ public class App {
         }
     }
 
+    /**
+     * Attempts to solve a puzzle at the player's current location.
+     * <p>
+     * - At (3,1): presents the Monolith riddle and awards a Gate Key on success.
+     * - At (1,1): presents the Strix Mastermind riddle and awards a Cryo Core on
+     * success.
+     * - Otherwise: informs the player there is no puzzle here.
+     *
+     * @param player  The player object to grant rewards upon solving.
+     * @param scanner The scanner for reading the player's answer.
+     */
     private static void handleSolve(Player player, Scanner scanner) {
         int x = player.getX(), y = player.getY();
 
