@@ -280,7 +280,7 @@ public class App {
             if (player.hasItem("Gate Key")) {
                 System.out.println("You use the Gate Key to activate the Rift Gate.");
                 System.out.println("A blinding light engulfs your ship as the gate powers up...");
-                System.out.println("You are about to face the boss. Are you sure? (y/n)");
+                System.out.println("You are about to face the boss. Are you sure you want to continue? (y/n)");
                 String ans = scanner.nextLine().trim().toLowerCase();
                 if (ans.equals("y")) {
                     System.out.println("Your ship is engulfed by a blinding light...");
