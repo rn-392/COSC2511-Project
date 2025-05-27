@@ -40,7 +40,7 @@ public class GameMap {
                                 "Eridani",
                                 "A harsh desert wasteland under a blood-red sky.");
                 eridani.setLongDescription(
-                                "Grand General Zig's forces patrol the dunes.\nA massive gate blocks the way unless you offer an Ore Chunk.\nDefeating Zig may yield a warp drive fragment.");
+                                "Grand General Zig's forces patrol the dunes.\nYou can trade an Ore Chunk with him for the warp drive fragment.\nAlternatively, there are other ways to get it...");
                 eridani.setHostile(true);
                 map[2][4] = eridani;
 

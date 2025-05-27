@@ -271,8 +271,7 @@ public class App {
         int x = player.getX(), y = player.getY();
         Location loc = map.getLocation(x, y);
 
-        // space station laser rifle
-        if (x == 2 && y == 3) {
+        if (x == 2 && y == 3) { // space station laser rifle
             if (loc.isEventTriggered()) {
                 System.out.println("You have already done this.");
             } else if (player.hasItem("Cryo Core")) {
@@ -289,15 +288,38 @@ public class App {
             } else {
                 System.out.println("You need something to power this terminal...");
             }
+        } else if (x == 2 && y == 4) {
+            if (loc.isEventTriggered()) {
+                System.out.println("You have already traded with Grand General Zig.");
+            } else if (player.hasItem("Ore Chunk")) {
+                loc.triggerEvent();
+                player.removeItem("Ore Chunk");
+                System.out.println("You trade the Ore Chunk with Grand General Zig.");
+                System.out.println("He is pleased with the trade and hands you a Warp Drive Fragment.");
+                player.addItem(new Items("Warp Drive Fragment"));
+                System.out.println();
+                System.out.println("You have received: Warp Drive Fragment 1");
 
-            // rift gate activation
-        } else if (x == 0 && y == 0) {
+            } else {
+                System.out.println("You don't have anything that pleases Grand General Zig.");
+            }
+        } else if (x == 0 && y == 0) { // rift gate activation
             if (player.hasItem("Gate Key")) {
                 System.out.println("You use the Gate Key to activate the Rift Gate.");
-                System.out.println("A blinding light engulfs your ship as the gate powers up...");
-                System.out.println("You are about to face the boss. Are you sure you want to continue? (y/n)");
-                String ans = scanner.nextLine().trim().toLowerCase();
-                if (ans.equals("y")) {
+                System.out.println();
+                System.out.println("The fabric of space-time ripples around the Gate...");
+                System.out.println();
+                String confirm;
+                do {
+                    System.out.print("You are about to face the boss. Are you sure you want to continue? (y/n): ");
+                    confirm = scanner.nextLine().trim().toLowerCase();
+                    if (!confirm.equals("y") && !confirm.equals("n")) {
+                        System.out.println("Please enter 'y' or 'n'.");
+                    }
+                } while (!confirm.equals("y") && !confirm.equals("n"));
+
+                if (confirm.equals("y")) {
+                    player.removeItem("Gate Key");
                     System.out.println("Your ship is engulfed by a blinding light...");
                     System.exit(0);
                 } else {
@@ -305,6 +327,21 @@ public class App {
                 }
             } else {
                 System.out.println("The Rift Gate is locked. You need something to activate it.");
+            }
+
+        } else if (x == 4 && y == 3) { // jungle moon hermit trade
+            if (loc.isEventTriggered()) {
+                System.out.println("You have already traded with the Jungle Hermit.");
+            } else if (player.hasItem("Ixyll Fruit")) {
+                loc.triggerEvent();
+                loc.setLongDescription("The Jungle Hermit has disappeared into the dense foliage of the jungle.");
+                player.removeItem("Ixyll Fruit");
+                System.out.println("You trade the Ixyll Fruit with the Jungle Hermit.");
+                System.out.println();
+                System.out.println("You have received: Shield Module");
+                player.addItem(new Items("Shield Module"));
+            } else {
+                System.out.println("You need an Ixyll Fruit to trade with the Jungle Hermit.");
             }
 
         } else {
