@@ -23,7 +23,7 @@ public class App {
         GameMap map = new GameMap();
         Player player = new Player();
 
-        displayWelcomeBanner(scanner);
+        displayWelcomeMenu(scanner);
 
         // get player name
         String playerName = "";
@@ -59,7 +59,7 @@ public class App {
      *
      * @param scanner the Scanner instance used for reading the user’s input
      */
-    private static void displayWelcomeBanner(Scanner scanner) {
+    private static void displayWelcomeMenu(Scanner scanner) {
         // Title of Game using Ascii - christ
         System.out.println(
                 """
@@ -68,12 +68,7 @@ public class App {
                         |  |  __     /  ^  \\    |  |       /  ^  \\   |  ,----'`---|  |----`|  | |  ,----'   |  .--.  |   /  ^  \\  \\   \\/    \\/   /  |   \\|  |
                         |  | |_ |   /  /_\\  \\   |  |      /  /_\\  \\  |  |         |  |     |  | |  |        |  |  |  |  /  /_\\  \\  \\            /   |  . `  |
                         |  |__| |  /  _____  \\  |  `----./  _____  \\ |  `----.    |  |     |  | |  `----.   |  '--'  | /  _____  \\  \\    /\\    /    |  |\\   |
-                         \\______| /__/     \\__\\ |_______/__/     \\__\\ \\______|    |__|     |__|  \\______|   |_______/ /__/     \\__\\  \\__/  \\__/     |__| \\__|   """ //
-        //
-        //
-        //
-        //
-        );
+                         \\______| /__/     \\__\\ |_______/__/     \\__\\ \\______|    |__|     |__|  \\______|   |_______/ /__/     \\__\\  \\__/  \\__/     |__| \\__|   """);
 
         int choice = -1;
         while (!gameStart) {
