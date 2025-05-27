@@ -8,6 +8,7 @@ import java.util.Scanner;
  */
 public class App {
     private static final Random random = new Random();
+    private static boolean gameStart = false;
 
     /**
      * The main method to start the game.
@@ -19,24 +20,9 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         GameMap map = new GameMap();
         Player player = new Player();
-        boolean gameStart = false;
 
-        displayWelcomeBanner();
+        displayWelcomeBanner(scanner);
 
-        // menu loop
-        while (!gameStart) {
-            System.out.print("Enter command: ");
-            String input = scanner.nextLine();
-            switch (input.toLowerCase()) {
-                case "1" -> gameStart = true;
-                case "q" -> {
-                    System.out.println("Quitting...");
-                    scanner.close();
-                    return;
-                }
-                default -> System.out.println("Invalid input. Press 1 to start or q to quit.");
-            }
-        }
         // get player name
         String playerName = "";
         while (playerName.isEmpty()) {
@@ -47,25 +33,31 @@ public class App {
             }
         }
         player.setName(playerName);
+
         System.out.println();
 
         displayGameInstructions(player);
 
         while (gameStart) {
-
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
             System.out.println();
             processCommand(input, player, map, scanner);
             System.out.println();
-
         }
     }
 
     /**
-     * Displays the welcome banner for the game.
+     * Displays the game’s ASCII welcome banner and prompts the user to start or
+     * quit.
+     * <p>
+     * This method loops until a valid menu choice is entered: “1” to start the game
+     * (sets the static gameStart flag to true) or “2” to quit (prints a message and
+     * calls System.exit(0) to terminate the program).
+     *
+     * @param scanner the Scanner instance used for reading the user’s input
      */
-    private static void displayWelcomeBanner() {
+    private static void displayWelcomeBanner(Scanner scanner) {
         // Title of Game using Ascii - christ
         System.out.println(
                 """
@@ -80,8 +72,28 @@ public class App {
         //
         //
         );
-        System.out.println("\n\n\t\t\t\t\t\t\tPress 1 to start");
-        System.out.println("\n\t\t\t\t\t\t\tPress q to quit");
+
+        int choice = -1;
+        while (!gameStart) {
+            System.out.print("\n\n\nChoose action (1=Start, 2=Quit): ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice == 1 || choice == 2)
+                    break;
+            } else {
+                scanner.nextLine();
+            }
+            System.out.println("Invalid input.");
+        }
+
+        if (choice == 1) {
+            gameStart = true;
+        } else {
+            System.out.println("Quitting...");
+            System.exit(0);
+        }
+
     }
 
     /**
@@ -92,16 +104,16 @@ public class App {
     private static void displayGameInstructions(Player player) {
         System.out.printf("Welcome to GALACTIC DAWN, %s!\n", player.getName());
         System.out.println();
-        System.out.println("==================== BRIEF ===================");
+        System.out.println("====================== BRIEF =====================");
         System.out.println("You awaken in empty space aboard a crippled spacecraft.");
         System.out.println("Its warp drive is obliterated and the stars are unreachable.");
         System.out.println("To escape, you must explore nearby planets, retrieve");
         System.out.println("four warp drive fragments, and defeat Emperor Poutine,");
         System.out.println("the tyrant whose corruption locks down the system.");
         System.out.printf("The Rift Gate awaits, %s.\n", player.getName());
-        System.out.println("===============================================");
+        System.out.println("===================================================");
         System.out.println();
-        System.out.println("============= GAME INSTRUCTIONS =============");
+        System.out.println("================= GAME INSTRUCTIONS ===============");
         System.out.println("Type n/s/e/w to move in that direction.");
         System.out.println("Type 'look' to examine your surroundings.");
         System.out.println("Type 'take' to pick up an item.");
@@ -111,7 +123,7 @@ public class App {
         System.out.println("Type 'use' to use an item at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'q' to quit the game.");
-        System.out.println("==============================================");
+        System.out.println("====================================================");
         System.out.println();
 
     }
