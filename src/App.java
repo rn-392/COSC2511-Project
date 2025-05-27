@@ -8,7 +8,6 @@ import java.util.Scanner;
  */
 public class App {
     private static final Random random = new Random();
-    private static boolean gameStart = false;
 
     /**
      * The main method to start the game.
@@ -20,6 +19,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         GameMap map = new GameMap();
         Player player = new Player();
+        boolean gameStart = false;
 
         displayWelcomeBanner();
 
@@ -221,9 +221,26 @@ public class App {
                 handleSolve(player, scanner, map);
             }
 
+            case "fight" -> {
+                int x = player.getX(), y = player.getY();
+                Location loc = map.getLocation(x, y);
+
+                // eridani general zig
+                if (x == 2 && y == 4) {
+                    // handle combat
+                }
+            }
+
             case "q" -> {
-                System.out.println("Are you sure you want to quit? (y/n):");
-                String confirm = scanner.nextLine().trim().toLowerCase();
+                String confirm;
+                do {
+                    System.out.print("Are you sure you want to quit? (y/n): ");
+                    confirm = scanner.nextLine().trim().toLowerCase();
+                    if (!confirm.equals("y") && !confirm.equals("n")) {
+                        System.out.println("Please enter 'y' or 'n'.");
+                    }
+                } while (!confirm.equals("y") && !confirm.equals("n"));
+
                 if (confirm.equals("y")) {
                     System.out.println("Thanks for playing. Goodbye!");
                     System.exit(0);
@@ -254,7 +271,7 @@ public class App {
         int x = player.getX(), y = player.getY();
         Location loc = map.getLocation(x, y);
 
-        // space station
+        // space station laser rifle
         if (x == 2 && y == 3) {
             if (loc.isEventTriggered()) {
                 System.out.println("You have already done this.");
@@ -273,7 +290,7 @@ public class App {
                 System.out.println("You need something to power this terminal...");
             }
 
-            // rift gate
+            // rift gate activation
         } else if (x == 0 && y == 0) {
             if (player.hasItem("Gate Key")) {
                 System.out.println("You use the Gate Key to activate the Rift Gate.");
