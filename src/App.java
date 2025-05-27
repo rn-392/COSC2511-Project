@@ -157,7 +157,7 @@ public class App {
      */
     private static void processCommand(String input, Player player, GameMap map, Scanner scanner) {
         Location currentLocation = map.getLocation(player.getX(), player.getY());
-        switch (input.toLowerCase()) {
+        switch (input.trim().toLowerCase()) {
             case "n" -> {
                 player.moveNorth();
                 if (random.nextBoolean()) {
@@ -245,16 +245,7 @@ public class App {
             }
 
             case "q" -> {
-                String confirm;
-                do {
-                    System.out.print("Are you sure you want to quit? (y/n): ");
-                    confirm = scanner.nextLine().trim().toLowerCase();
-                    if (!confirm.equals("y") && !confirm.equals("n")) {
-                        System.out.println("Please enter 'y' or 'n'.");
-                    }
-                } while (!confirm.equals("y") && !confirm.equals("n"));
-
-                if (confirm.equals("y")) {
+                if (confirm("Are you sure you want to quit? (y/n): ", scanner)) {
                     System.out.println("Thanks for playing. Goodbye!");
                     System.exit(0);
                 } else {
@@ -288,54 +279,52 @@ public class App {
             if (loc.isEventTriggered()) {
                 System.out.println("You have already done this.");
             } else if (player.hasItem("Cryo Core")) {
-                loc.triggerEvent();
-                loc.setLongDescription("""
-                        The AI terminal is fully powered, displaying active system readouts.
-                        The armory access lights are green, and the secured doors are wide open.
-                        """);
-                player.removeItem("Cryo Core");
-                System.out.println("You use the Cryo Core to power up the AI terminal.");
-                System.out.println("The room hums to life as the armory doors slide open.");
-                System.out.println("You have found: Laser Rifle");
-                player.addItem(new Items("Laser Rifle"));
+                if (confirm("Do you wish to use the Cryo Core? (y/n): ", scanner)) {
+                    loc.triggerEvent();
+                    loc.setLongDescription("""
+                            The AI terminal is fully powered, displaying active system readouts.
+                            The armory access lights are green, and the secured doors are wide open.
+                            """);
+                    player.removeItem("Cryo Core");
+                    System.out.println("You use the Cryo Core to power up the AI terminal.");
+                    System.out.println("The room hums to life as the armory doors slide open.");
+                    System.out.println("You have found: Laser Rifle");
+                    player.addItem(new Items("Laser Rifle"));
+                } else {
+                    System.out.println("You decide not to use the Cryo Core right now.");
+                }
             } else {
                 System.out.println("You need something to power this terminal...");
             }
+
         } else if (x == 2 && y == 4) {
             if (loc.isEventTriggered()) {
                 System.out.println("You have already traded with Grand General Zig.");
             } else if (player.hasItem("Ore Chunk")) {
-                loc.triggerEvent();
-                player.removeItem("Ore Chunk");
-                System.out.println("You trade the Ore Chunk with Grand General Zig.");
-                System.out.println("He is pleased with the trade and hands you a Warp Drive Fragment.");
-                player.addItem(new Items("Warp Drive Fragment"));
-                System.out.println();
-                System.out.println("You have received: Warp Drive Fragment 1");
-
+                if (confirm("Trade the Ore Chunk with Grand General Zig? (y/n): ", scanner)) {
+                    loc.triggerEvent();
+                    player.removeItem("Ore Chunk");
+                    System.out.println("You trade the Ore Chunk with Grand General Zig.");
+                    System.out.println("He is pleased with the trade and hands you a Warp Drive Fragment.");
+                    player.addItem(new Items("Warp Drive Fragment"));
+                    System.out.println("\nYou have received: Warp Drive Fragment 1");
+                } else {
+                    System.out.println("You hold onto the Ore Chunk for now.");
+                }
             } else {
                 System.out.println("You don't have anything that pleases Grand General Zig.");
             }
+
         } else if (x == 0 && y == 0) { // rift gate activation
             if (player.hasItem("Gate Key")) {
                 System.out.println("You use the Gate Key to activate the Rift Gate.");
-                System.out.println();
-                System.out.println("The fabric of space-time ripples around the Gate...");
-                System.out.println();
-                String confirm;
-                do {
-                    System.out.print("You are about to face the boss. Are you sure you want to continue? (y/n): ");
-                    confirm = scanner.nextLine().trim().toLowerCase();
-                    if (!confirm.equals("y") && !confirm.equals("n")) {
-                        System.out.println("Please enter 'y' or 'n'.");
-                    }
-                } while (!confirm.equals("y") && !confirm.equals("n"));
-
-                if (confirm.equals("y")) {
+                System.out.println("\nThe fabric of space-time ripples around the Gate...\n");
+                if (confirm("You are about to face the boss. Continue? (y/n): ", scanner)) {
                     player.removeItem("Gate Key");
                     System.out.println("Your ship is engulfed by a blinding light...");
                     System.exit(0);
                 } else {
+                    System.out.println();
                     System.out.println("You step back from the Rift Gate.");
                 }
             } else {
@@ -346,13 +335,16 @@ public class App {
             if (loc.isEventTriggered()) {
                 System.out.println("You have already traded with the Jungle Hermit.");
             } else if (player.hasItem("Ixyll Fruit")) {
-                loc.triggerEvent();
-                loc.setLongDescription("The Jungle Hermit has disappeared into the dense foliage of the jungle.");
-                player.removeItem("Ixyll Fruit");
-                System.out.println("You trade the Ixyll Fruit with the Jungle Hermit.");
-                System.out.println();
-                System.out.println("You have received: Shield Module");
-                player.addItem(new Items("Shield Module"));
+                if (confirm("Trade the Ixyll Fruit with the Jungle Hermit? (y/n): ", scanner)) {
+                    loc.triggerEvent();
+                    loc.setLongDescription("The Jungle Hermit has disappeared into the dense foliage of the jungle.");
+                    player.removeItem("Ixyll Fruit");
+                    System.out.println("You trade the Ixyll Fruit with the Jungle Hermit.");
+                    System.out.println("\nYou have received: Shield Module");
+                    player.addItem(new Items("Shield Module"));
+                } else {
+                    System.out.println("You tuck the Ixyll Fruit away for later.");
+                }
             } else {
                 System.out.println("You need an Ixyll Fruit to trade with the Jungle Hermit.");
             }
@@ -360,6 +352,28 @@ public class App {
         } else {
             System.out.println("There's nothing here you can use.");
         }
+    }
+
+    /**
+     * Prompts the user with a yes/no question and reads input until a valid
+     * response is given.
+     *
+     * @param prompt  the message to display asking the user to confirm (e.g. "Are
+     *                you sure? (y/n): ")
+     * @param scanner the Scanner instance to read the user's input from
+     * @return {@code true} if the user entered 'y'; {@code false} if the user
+     *         entered 'n'
+     */
+    private static boolean confirm(String prompt, Scanner scanner) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine().trim().toLowerCase();
+            if (!input.equals("y") && !input.equals("n")) {
+                System.out.println("Please enter 'y' or 'n'.");
+            }
+        } while (!input.equals("y") && !input.equals("n"));
+        return input.equals("y");
     }
 
     /**
