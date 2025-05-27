@@ -137,12 +137,13 @@ public class App {
     private static void printCurrentLocation(Player player, GameMap map) {
         Location loc = map.getLocation(player.getX(), player.getY());
         System.out.println();
-        System.out.println("\nLocation: " +
-                (loc.isHostile() ? "**[HOSTILE]** " : "") +
-                loc.getName() + " (" + player.getX() + ", " + player.getY() + ")");
+        System.out.print("\nLocation: ");
+        if (loc.isHostile()) {
+            System.out.print("**[HOSTILE]** ");
+        }
+        System.out.println(loc.getName() + " (" + player.getX() + ", " + player.getY() + ")");
         System.out.println(loc.getDescription());
         System.out.println();
-
     }
 
     /**

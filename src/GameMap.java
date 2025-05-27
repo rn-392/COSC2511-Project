@@ -22,7 +22,7 @@ public class GameMap {
                 Random random = new java.util.Random();
                 for (int i = 0; i < 5; i++) {
                         for (int j = 0; j < 5; j++) {
-                                map[i][j] = new Location("Empty Space", "You are drifting through empty space.");
+                                map[i][j] = new Location("Empty Space", "You are drifting through empty space.", false);
                                 int variation = random.nextInt(3);
                                 switch (variation) {
                                         case 0 -> map[i][j].setLongDescription(
@@ -38,47 +38,43 @@ public class GameMap {
                 // Planets
                 Location eridani = new Location(
                                 "Eridani",
-                                "A harsh desert wasteland under a blood-red sky.");
+                                "A harsh desert wasteland under a blood-red sky.", true);
                 eridani.setLongDescription(
-                                "Grand General Zig's forces patrol the dunes.\nYou can trade an Ore Chunk with him for the warp drive fragment.\nAlternatively, there are other ways to get it...");
-                eridani.setHostile(true);
+                                "Grand General Zig's forces patrol the dunes.\nYou can trade an Ore Chunk with him for the warp drive fragment.\nAlternatively, there are less amicable ways to get it...");
                 map[2][4] = eridani;
 
                 Location ixyll = new Location(
                                 "Ixyll",
-                                "Dense jungle vines obscure your path.");
+                                "Dense jungle vines obscure your path.", true);
                 ixyll.setLongDescription(
                                 "The air hums with energy.\nZep Zop, a tribal warrior, defends the jungle.\nDefeating him grants a mysterious fruit and a warp drive fragment.");
-                ixyll.setHostile(true);
                 map[0][3] = ixyll;
 
                 Location strix = new Location(
                                 "Strix",
-                                "Freezing winds howl across a barren tundra.");
+                                "Freezing winds howl across a barren tundra.", true);
                 strix.setLongDescription(
                                 "Mastermind lurks within a ruined facility.\nEntertain his musings for a special reward.\nVictory yields a warp drive fragment.");
-                strix.setHostile(true);
                 map[1][1] = strix;
 
                 Location ternion = new Location(
                                 "Ternion",
-                                "Ruins of a once-thriving city now echo with silence.");
+                                "Ruins of a once-thriving city now echo with silence.", true);
                 ternion.setLongDescription(
                                 "A Rogue Droid stalks the alleys.\nIts defeat is the only way to claim the warp drive fragment hidden here.");
-                ternion.setHostile(true);
                 map[4][0] = ternion;
 
                 // Points of Interest
                 Location station = new Location(
                                 "Abandoned Space Station",
-                                "You see the remains of an abandoned space station drifting silently.");
+                                "You see the remains of an abandoned space station drifting silently.", true);
                 station.setLongDescription(
                                 "A dormant AI terminal blinks faintly.\nPower couplings near the entrance suggest this station needs an energy source.\nFaded text on the hull reads 'ARMORY - AUTHORIZED PERSONNEL ONLY'.");
                 map[2][3] = station;
 
                 Location asteroid = new Location(
                                 "Asteroid",
-                                "Jagged rocks surround a mining site carved into the asteroid's crust.");
+                                "Jagged rocks surround a mining site carved into the asteroid's crust.", false);
                 asteroid.setLongDescription(
                                 "Laser drills hum quietly.\nRich ore veins glint beneath the surface, promising valuable resources.");
                 asteroid.setHasItem(true);
@@ -87,24 +83,23 @@ public class GameMap {
 
                 Location jungleMoon = new Location(
                                 "Jungle Moon",
-                                "Thick underbrush and alien chirps define the moon's surface.");
+                                "Thick underbrush and alien chirps define the moon's surface.", false);
                 jungleMoon.setLongDescription(
                                 "The Feral Hermit watches from the shadows.\nHe seems open to trading a Fruit for a Shield Module.");
                 map[4][3] = jungleMoon;
 
                 Location monolith = new Location(
                                 "Mysterious Monolith",
-                                "A tall, obsidian structure pulses with otherworldly light.");
+                                "A tall, obsidian structure pulses with otherworldly light.", false);
                 monolith.setLongDescription(
                                 "Etched glyphs hint at a riddle.\nAnswering it may unlock the key to a hidden gate.");
                 map[3][1] = monolith;
 
                 Location riftGate = new Location(
                                 "Rift Gate",
-                                "A swirling vortex pulses with dark energy.");
+                                "A swirling vortex pulses with dark energy.", true);
                 riftGate.setLongDescription(
                                 "The final challenge awaits.\nOnly those with the Gate Key may face Emperor Poutine and end his corruption.");
-                riftGate.setHostile(true);
                 map[0][0] = riftGate;
 
         }

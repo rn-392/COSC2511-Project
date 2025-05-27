@@ -39,11 +39,11 @@ public class Location {
      * @param name        The name of the location.
      * @param description A short description of the location.
      */
-    public Location(String name, String description) {
+    public Location(String name, String description, boolean isHostile) {
         this.name = name;
         this.description = description;
         this.hasItem = false;
-        this.isHostile = false;
+        this.isHostile = isHostile;
         this.eventTriggered = false;
         this.item = null;
         this.longDescription = "";
