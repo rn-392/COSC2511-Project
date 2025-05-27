@@ -300,10 +300,15 @@ public class App {
             } else if (player.hasItem("Ore Chunk")) {
                 if (confirm("Trade the Ore Chunk with Grand General Zig? (y/n): ", scanner)) {
                     loc.triggerEvent();
+                    loc.setLongDescription("""
+                            Grand General Zig's forces have retreated into the dunes.
+                            The desert wasteland is now eerily quiet, with only the
+                            sound of the wind sweeping across the barren sands.
+                            """);
                     player.removeItem("Ore Chunk");
                     System.out.println("You trade the Ore Chunk with Grand General Zig.");
                     System.out.println("He is pleased with the trade and hands you a Warp Drive Fragment.");
-                    player.addItem(new Items("Warp Drive Fragment"));
+                    player.addItem(new Items("Warp Drive Fragment 1"));
                     System.out.println("\nYou have received: Warp Drive Fragment 1");
                 } else {
                     System.out.println("You hold onto the Ore Chunk for now.");
