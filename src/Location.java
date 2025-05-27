@@ -34,10 +34,11 @@ public class Location {
     private boolean enemiesDefeated;
 
     /**
-     * Constructs a Location with the specified name and description.
+     * Constructs a Location with name, description, and hostility indicator..
      *
      * @param name        The name of the location.
      * @param description A short description of the location.
+     * @param isHostile   Indication of location's hostility.
      */
     public Location(String name, String description, boolean isHostile) {
         this.name = name;
