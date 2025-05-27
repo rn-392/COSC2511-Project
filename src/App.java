@@ -5,6 +5,8 @@ import java.util.Scanner;
  * The main application class for the game.
  * This class initializes the game map, player, and handles user input for
  * gameplay.
+ * 
+ * generate javadoc = javadoc -d doc/ -private src/*.java
  */
 public class App {
     private static final Random random = new Random();

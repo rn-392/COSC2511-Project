@@ -100,6 +100,14 @@ public class Player {
         inventory.add(item);
     }
 
+    /**
+     * Checks if the player's inventory contains an item with the specified name.
+     *
+     * @param itemName the name of the item to search for in the inventory
+     * @return {@code true} if an item with the specified name exists in the
+     *         inventory,
+     *         {@code false} otherwise
+     */
     public boolean hasItem(String itemName) {
         for (Items item : inventory) {
             if (item.getName().equals(itemName)) {
@@ -109,6 +117,13 @@ public class Player {
         return false;
     }
 
+    /**
+     * Removes an item from the player's inventory based on the item's name.
+     *
+     * @param itemName The name of the item to be removed from the inventory.
+     * @return {@code true} if the item was found and removed successfully,
+     *         {@code false} otherwise.
+     */
     public boolean removeItem(String itemName) {
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.get(i).getName().equals(itemName)) {
