@@ -2,49 +2,29 @@
 public class combatCharacters {
     private String  name;
     private String charType;
-    private boolean health;
+    private int health;
 
-    public combatCharacters(String name, String charType, boolean health){
+    public combatCharacters(String name, String charType, int health){
         this.name = name;
         this.charType = charType;
         this.health = health;
     }
 
     public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return name;
     }
 
     public String getCharType() {
-        return this.charType;
+        return charType;
     }
 
-    public void setCharType(String charType) {
-        this.charType = charType;
+    public int getHealth() {
+        return health;
     }
 
-    public boolean isHealth() {
-        return this.health;
-    }
-
-    public void setHealth(boolean health) {
+    public void setHealth(int health) {
         this.health = health;
     }
-
-    @Override
-    public String toString() {
-        return String.format("Character Info\nName: %s\nType: %f\nHealth:", this.name, this.charType, this.health);
-    }
- 
-    
-
-   
-
-
-    
 
 }
 
