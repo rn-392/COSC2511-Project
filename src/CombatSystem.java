@@ -1,6 +1,16 @@
+
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * The CombatSystem class handles combat encounters between the player and
+ * enemies.
+ * It includes methods for initiating combat, processing player and enemy
+ * actions,
+ * and handling the outcomes of battles.
+ * 
+ * @author Christ Khin
+ */
 public class CombatSystem {
     private static final Random random = new Random();
 
@@ -34,6 +44,22 @@ public class CombatSystem {
     // }
     // }
 
+    /**
+     * Runs a fight between the player and an enemy.
+     * Shows the enemy’s intro line, then lets the player choose to attack, heal, or
+     * try to run.
+     * If the player attacks, damage is dealt to the enemy.
+     * If the player uses a Stimpack, they heal and the enemy skips their turn.
+     * If the player runs and succeeds, the fight ends.
+     * If the enemy attacks, damage is reduced if the player has a Shield Module.
+     * Ends when the enemy is defeated, the player escapes, or the player dies.
+     *
+     * @param player  The player participating in combat.
+     * @param enemy   The enemy being fought.
+     * @param scanner Scanner object used for player input.
+     * @param map     The game map, used to update the location state upon enemy
+     *                defeat.
+     */
     public static void combat(Player player, CombatCharacters enemy, Scanner scanner, GameMap map) {
         Location loc = map.getLocation(player.getX(), player.getY());
 
@@ -161,6 +187,16 @@ public class CombatSystem {
         }
     }
 
+    /**
+     * Triggers when the player beats an enemy.
+     * Gives the player certain items depending on which enemy was defeated.
+     * Changes the location so it’s no longer hostile and updates the description.
+     * If the final boss "Emperor Poutine" is defeated, the game ends.
+     *
+     * @param player The player who defeated the enemy.
+     * @param enemy  The defeated enemy.
+     * @param map    The game map used to locate and update the current location.
+     */
     private static void handleEnemyDefeat(Player player, CombatCharacters enemy, GameMap map) {
         enemy.setDead(true);
         System.out.println();

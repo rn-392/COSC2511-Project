@@ -1,4 +1,6 @@
 
+import java.util.Random;
+
 /**
  * Represents an enemy character in the game with attributes such as name,
  * type, health, and damage range.
@@ -6,15 +8,35 @@
  *
  * @author Christ Khin
  */
-import java.util.Random;
-
 public class CombatCharacters {
-
+    /**
+     * The name of the character
+     */
     private final String name;
+
+    /**
+     * The type of character
+     */
     private final String charType;
+
+    /**
+     * The current health of the character.
+     */
     private int health;
+
+    /**
+     * The minimum amount of damage this character can deal.
+     */
     private final int minDamage;
+
+    /**
+     * The maximum amount of damage this character can deal.
+     */
     private final int maxDamage;
+
+    /**
+     * Whether character is dead or not.
+     */
     private boolean isDead;
 
     /** Enemies */

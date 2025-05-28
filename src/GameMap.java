@@ -3,7 +3,8 @@ import java.util.Random;
 
 /**
  * This class represents the game map, which consists of a grid of locations.
- * * @author Ricky Nguyen
+ * 
+ * @author Ricky Nguyen
  */
 public class GameMap {
         /**

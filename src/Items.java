@@ -1,32 +1,46 @@
-
 /**
- * The {@code Items} class represents an item with a name and provides a
- * set of predefined items.
- * It includes methods to get and set the name of the item.
- * 
- * <p>
- * This class also defines several static final instances of
- * {@code Items} that represent
- * specific items, such as "Ore Chunk", "Laser Rifle", and "Gate Key".
- * 
+ * Represents an item in the game.
+ * Each item has a name and can be used for various gameplay mechanics like
+ * healing,
+ * unlocking areas, or enhancing combat.
  * 
  * @author George Thodis
  */
 public class Items {
+
+    /**
+     * Name of the item
+     */
     private String name;
 
+    /**
+     * Creates a new item with the given name.
+     *
+     * @param name The name of the item.
+     */
     public Items(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the item's name.
+     *
+     * @return The name of the item.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the item's name.
+     *
+     * @param name The new name of the item.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    // Predefined items used throughout the game.
     public static final Items ORE_CHUNK = new Items("Ore Chunk");
     public static final Items LASER_RIFLE = new Items("Laser Rifle");
     public static final Items GATE_KEY = new Items("Gate Key");
