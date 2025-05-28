@@ -67,7 +67,7 @@ public class GameMap {
                 // Points of Interest
                 Location station = new Location(
                                 "Abandoned Space Station",
-                                "You see the remains of an abandoned space station drifting silently.", true);
+                                "You see the remains of an abandoned space station drifting silently.", false);
                 station.setLongDescription(
                                 "A dormant AI terminal blinks faintly.\nPower couplings near the entrance suggest this station needs an energy source.\nFaded text on the hull reads 'ARMORY - AUTHORIZED PERSONNEL ONLY'.");
                 map[2][3] = station;

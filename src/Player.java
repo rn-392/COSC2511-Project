@@ -25,7 +25,6 @@ public class Player {
      * The player's current health value.
      */
     private int health;
-
     /**
      * The name of the player.
      */
@@ -43,7 +42,7 @@ public class Player {
     public Player() {
         this.x = 2;
         this.y = 2;
-        this.health = 100;
+        this.health = 200;
         this.playerName = "Unknown Traveler";
     }
 

@@ -1,7 +1,3 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-//Contains both Items and Inventory classes
 
 //@georgethodis
 public class Items {
@@ -19,41 +15,54 @@ public class Items {
         this.name = name;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Items[] items = new Items[5];
-        ArrayList<Items> inventory = new ArrayList<>(); //creates inventory array 
-        boolean[] pickedUp = new boolean[5];
+    public static final Items ORE_CHUNK = new Items("Ore Chunk");
+    public static final Items LASER_RIFLE = new Items("Laser Rifle");
+    public static final Items GATE_KEY = new Items("Gate Key");
+    public static final Items CRYO_CORE = new Items("Cryo Core");
+    public static final Items SHIELD_MODULE = new Items("Shield Module");
+    public static final Items IXYLL_FRUIT = new Items("Ixyll Fruit");
+    public static final Items STIMPACK = new Items("Stimpack");
+    public static final Items WARP_DRIVE_FRAGMENT_1 = new Items("Warp Drive Fragment 1");
+    public static final Items WARP_DRIVE_FRAGMENT_2 = new Items("Warp Drive Fragment 2");
+    public static final Items WARP_DRIVE_FRAGMENT_3 = new Items("Warp Drive Fragment 3");
+    public static final Items WARP_DRIVE_FRAGMENT_4 = new Items("Warp Drive Fragment 4");
 
-        // Picking up items
-        for (int i = 0; i < items.length; i++) {
-            items[i] = new Items("Rocket Piece " + (i + 1));
-        }
+    // public static void main(String[] args) {
+    // Scanner scanner = new Scanner(System.in);
+    // Items[] items = new Items[5];
+    // ArrayList<Items> inventory = new ArrayList<>(); // creates inventory array
+    // boolean[] pickedUp = new boolean[5];
 
-        // Ask user to pick up each item
-        for (int i = 0; i < items.length; i++) {
-            System.out.println("You found " + items[i].getName() + ". Would you like to pick it up? (yes/y)");
-            String input = scanner.nextLine().trim().toLowerCase();
+    // // Picking up items
+    // for (int i = 0; i < items.length; i++) {
+    // items[i] = new Items("Rocket Piece " + (i + 1));
+    // }
 
-            if (input.equals("yes") || input.equals("y")) {
-                pickedUp[i] = true;
-                System.out.println(items[i].getName() + " has been picked up.");
-            } else {
-                pickedUp[i] = false;
-                System.out.println("You didn't pick up " + items[i].getName() + ".");
-            }
-        }
+    // // Ask user to pick up each item
+    // for (int i = 0; i < items.length; i++) {
+    // System.out.println("You found " + items[i].getName() + ". Would you like to
+    // pick it up? (yes/y)");
+    // String input = scanner.nextLine().trim().toLowerCase();
 
-        System.out.println("\nYour Inventory:");
-        if (inventory.isEmpty()){
-            System.out.println("Your inventory is empty. Completely.");
-        } else {
-            for(Items item : inventory) {
-                System.out.println(" - " + item.getName());
-            }
-        }
+    // if (input.equals("yes") || input.equals("y")) {
+    // pickedUp[i] = true;
+    // System.out.println(items[i].getName() + " has been picked up.");
+    // } else {
+    // pickedUp[i] = false;
+    // System.out.println("You didn't pick up " + items[i].getName() + ".");
+    // }
+    // }
 
-        scanner.close();
-    }    
+    // System.out.println("\nYour Inventory:");
+    // if (inventory.isEmpty()) {
+    // System.out.println("Your inventory is empty. Completely.");
+    // } else {
+    // for (Items item : inventory) {
+    // System.out.println(" - " + item.getName());
+    // }
+    // }
+
+    // scanner.close();
+    // }
 
 }

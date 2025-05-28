@@ -27,12 +27,6 @@ public class Location {
     /** Indicates whether a special event in the location has been triggered. */
     private boolean eventTriggered;
 
-    /** The character present in the location, if any. */
-    private combatCharacters character;
-
-    /** Indicates whether all enemies in the location have been defeated. */
-    private boolean enemiesDefeated;
-
     /**
      * Constructs a Location with name, description, and hostility indicator..
      *
@@ -48,8 +42,6 @@ public class Location {
         this.eventTriggered = false;
         this.item = null;
         this.longDescription = "";
-        this.character = null;
-        this.enemiesDefeated = false;
     }
 
     /**
@@ -145,24 +137,6 @@ public class Location {
     }
 
     /**
-     * Returns the character present in the location.
-     *
-     * @return The character in the location.
-     */
-    public combatCharacters getCharacter() {
-        return character;
-    }
-
-    /**
-     * Sets the character of the location.
-     *
-     * @param character The character to set, or null if no character.
-     */
-    public void setCharacter(combatCharacters character) {
-        this.character = character;
-    }
-
-    /**
      * Checks if a special event in the location has been triggered.
      *
      * @return True if the event has been triggered, false otherwise.
@@ -176,23 +150,5 @@ public class Location {
      */
     public void triggerEvent() {
         this.eventTriggered = true;
-    }
-
-    /**
-     * Checks if all enemies in the location have been defeated.
-     *
-     * @return True if all enemies are defeated, false otherwise.
-     */
-    public boolean areEnemiesDefeated() {
-        return enemiesDefeated;
-    }
-
-    /**
-     * Sets whether all enemies in the location have been defeated.
-     *
-     * @param defeated True if all enemies are defeated, false otherwise.
-     */
-    public void setEnemiesDefeated(boolean defeated) {
-        this.enemiesDefeated = defeated;
     }
 }
