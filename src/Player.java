@@ -166,12 +166,30 @@ public class Player {
     }
 
     /**
+     * Sets the player's x-coordinate position.
+     *
+     * @param x The new x-coordinate.
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
      * Gets the player's y-coordinate position.
      *
      * @return The y-coordinate.
      */
     public int getY() {
         return y;
+    }
+
+    /**
+     * Sets the player's y-coordinate position.
+     *
+     * @param y The new y-coordinate.
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 
     /**
@@ -209,4 +227,18 @@ public class Player {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    /**
+     * Checks if the player possesses all the required Warp Drive Fragments.
+     *
+     * @return {@code true} if the player has all four Warp Drive Fragments;
+     *         {@code false} otherwise.
+     */
+    public boolean hasAllWarpFragments() {
+        return hasItem("Warp Drive Fragment 1")
+                && hasItem("Warp Drive Fragment 2")
+                && hasItem("Warp Drive Fragment 3")
+                && hasItem("Warp Drive Fragment 4");
+    }
+
 }

@@ -5,7 +5,9 @@ import java.util.Scanner;
  * The main application class for the game.
  * This class initializes the game map, player, and handles user input for
  * gameplay.
- * 
+ * This class handles initialization of core game components (player, map),
+ * processes player commands, manages combat and item usage, and
+ * coordinates game flow through various menu and interaction methods.
  * generate javadoc = javadoc -d doc/ -private src/*.java
  */
 public class App {
@@ -46,9 +48,6 @@ public class App {
             System.out.println();
             processCommand(input, player, map, scanner);
             System.out.println();
-            if (player.getX() == 0 && player.getY() == 3) {
-                CombatSystem.enemyEncounter(player, scanner, map, combatCharacters.zepZop);
-            }
         }
     }
 
@@ -120,6 +119,7 @@ public class App {
         System.out.println("Type 'inv' to check your inventory.");
         System.out.println("Type 'map' to see the map.");
         System.out.println("Type 'solve' to attempt a puzzle at your location.");
+        System.out.println("Type 'heal' to use a Stimpack to restore health");
         System.out.println("Type 'use' to use an item at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'q' to quit the game.");
@@ -224,6 +224,7 @@ public class App {
                 System.out.println("inv - Show your inventory");
                 System.out.println("solve - Attempt a puzzle at your location");
                 System.out.println("use - Use an item at your location");
+                System.out.println("heal - Use a Stimpack to restore health");
                 System.out.println("help / ? - Show this help menu");
                 System.out.println("q - Quit the game");
             }
@@ -236,11 +237,39 @@ public class App {
 
             case "fight" -> {
                 int x = player.getX(), y = player.getY();
-                Location loc = map.getLocation(x, y);
 
-                // eridani general zig
-                if (x == 2 && y == 4 && !combatCharacters.zig.isDead() && !loc.isEventTriggered()) {
-                    CombatSystem.combat(player, combatCharacters.zig, scanner, map);
+                // Eridani (2,4): Grand General Zig
+                if (x == 2 && y == 4) {
+                    if (!combatCharacters.zig.isDead() && !currentLocation.isEventTriggered()) {
+                        CombatSystem.combat(player, combatCharacters.zig, scanner, map);
+                    } else {
+                        System.out.println("The desert is eerily quiet. Zig is no longer here.");
+                    }
+
+                    // Ixyll (0,3): Zep Zop
+                } else if (x == 0 && y == 3) {
+                    if (!combatCharacters.zepZop.isDead()) {
+                        CombatSystem.combat(player, combatCharacters.zepZop, scanner, map);
+                    } else {
+                        System.out.println("The jungle rustles gently, but Zep Zop has been defeated.");
+                    }
+
+                    // Strix (1,1): Mastermind
+                } else if (x == 1 && y == 1) {
+                    if (!combatCharacters.mastermind.isDead()) {
+                        CombatSystem.combat(player, combatCharacters.mastermind, scanner, map);
+                    } else {
+                        System.out.println("The air is still and cold. The Mastermind has already been dealt with.");
+                    }
+
+                    // Ternion (4,0): Rogue Droid
+                } else if (x == 4 && y == 0) {
+                    if (!combatCharacters.droid.isDead()) {
+                        CombatSystem.combat(player, combatCharacters.droid, scanner, map);
+                    } else {
+                        System.out.println("The droid's remains lie motionless among the ruins.");
+                    }
+
                 } else {
                     System.out.println("There's nothing to fight here.");
                 }
@@ -248,7 +277,7 @@ public class App {
 
             case "heal" -> {
                 if (player.hasItem("Stimpack")) {
-                    if (confirm("Do you want to use a Stimpack? (y/n)", scanner)) {
+                    if (confirm("Do you want to use a Stimpack? (y/n) ", scanner)) {
                         player.removeItem("Stimpack");
                         System.out.println();
                         System.out.println("You use a stimpack and replenish some health.");
@@ -272,6 +301,18 @@ public class App {
                 } else {
                     System.out.println("Continuing game...");
                 }
+            }
+
+            case "debug" -> {
+                player.addItem(Items.WARP_DRIVE_FRAGMENT_1);
+                player.addItem(Items.WARP_DRIVE_FRAGMENT_2);
+                player.addItem(Items.WARP_DRIVE_FRAGMENT_3);
+                player.addItem(Items.WARP_DRIVE_FRAGMENT_4);
+                player.addItem(Items.GATE_KEY);
+                player.addItem(Items.LASER_RIFLE);
+                player.addItem(Items.SHIELD_MODULE);
+                player.setHealth(300);
+                System.out.println("DEBUG MODE ACTIVE: Starting at Rift Gate with full loadout.");
             }
             default -> System.out.println("Invalid input.");
 
@@ -347,19 +388,20 @@ public class App {
         } else if (x == 0 && y == 0) {
 
             // rift gate activation
-            if (player.hasItem("Gate Key")) {
+            if (player.hasItem("Gate Key") && player.hasAllWarpFragments()) {
                 System.out.println("You use the Gate Key to activate the Rift Gate.");
                 System.out.println("\nThe fabric of space-time ripples around the Gate...\n");
                 if (confirm("You are about to face the boss. Continue? (y/n): ", scanner)) {
                     player.removeItem("Gate Key");
                     System.out.println("Your ship is engulfed by a blinding light...");
-                    System.exit(0);
+                    System.out.println();
+                    CombatSystem.combat(player, combatCharacters.boss, scanner, map);
                 } else {
                     System.out.println();
                     System.out.println("You step back from the Rift Gate.");
                 }
             } else {
-                System.out.println("The Rift Gate is locked. You need something to activate it.");
+                System.out.println("The Rift Gate is blocked. You need something to activate it.");
             }
 
         } else if (x == 4 && y == 3) { // jungle moon hermit trade
@@ -395,7 +437,7 @@ public class App {
      * @return {@code true} if the user entered 'y'; {@code false} if the user
      *         entered 'n'
      */
-    private static boolean confirm(String prompt, Scanner scanner) {
+    public static boolean confirm(String prompt, Scanner scanner) {
         String input;
         do {
             System.out.print(prompt);
@@ -473,5 +515,3 @@ public class App {
         }
     }
 }
-
-// combat

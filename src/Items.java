@@ -1,5 +1,17 @@
 
-//@georgethodis
+/**
+ * The {@code Items} class represents an item with a name and provides a
+ * set of predefined items.
+ * It includes methods to get and set the name of the item.
+ * 
+ * <p>
+ * This class also defines several static final instances of
+ * {@code Items} that represent
+ * specific items, such as "Ore Chunk", "Laser Rifle", and "Gate Key".
+ * 
+ * 
+ * @author George Thodis
+ */
 public class Items {
     private String name;
 
