@@ -153,6 +153,7 @@ public class App {
                     System.out.println("You guide your ship northward through space.");
                 }
                 printCurrentLocation(player, map);
+                CombatSystem.checkEnemy(player, scanner, map);
             }
             case "s" -> {
                 player.moveSouth();
@@ -162,6 +163,7 @@ public class App {
                     System.out.println("You guide your ship southward through space.");
                 }
                 printCurrentLocation(player, map);
+                CombatSystem.checkEnemy(player, scanner, map);
             }
             case "e" -> {
                 player.moveEast();
@@ -171,6 +173,7 @@ public class App {
                     System.out.println("You guide your ship eastward through space.");
                 }
                 printCurrentLocation(player, map);
+                CombatSystem.checkEnemy(player, scanner, map);
             }
             case "w" -> {
                 player.moveWest();
@@ -180,6 +183,7 @@ public class App {
                     System.out.println("You guide your ship westward through space.");
                 }
                 printCurrentLocation(player, map);
+                CombatSystem.checkEnemy(player, scanner, map);
             }
             case "map" -> map.printMap(player);
             case "inv" -> player.listInventory();
@@ -360,4 +364,200 @@ public class App {
             System.out.println("There is no puzzle to solve here.");
         }
     }
-}
+
+    //combat
+
+    public class CombatSystem {
+        private static final Random random = new Random();
+    
+        public static combatCharacters enemy1 = new combatCharacters("Rogue Droid", "Robot", 120);
+        public static combatCharacters enemy2 = new combatCharacters("Zep Zop", "Xeno", 150);
+        public static combatCharacters enemy3 = new combatCharacters("Mastermind", "AI", 260);
+        public static combatCharacters enemy4 = new combatCharacters("Grand General Zig", "Alpha Xeno", 330);
+        public static combatCharacters boss = new combatCharacters("Emperor Poutine", "Grand Xeno", 400);
+
+        public static void checkEnemy(Player player, Scanner scanner, GameMap map){
+            int x = player.getX();
+            int y = player.getY();
+            Location loc = map.getLocation(x,y);
+
+            if (loc.isHostile()){
+                combatCharacters enemy = null;
+
+                if (x == 4 && y == 0) {
+                    enemy = CombatSystem.enemy1;
+                }else if (x == 0&& y == 3) {
+                    enemy = CombatSystem.enemy2;
+                }else if (x == 1&& y == 1) {
+                    enemy = CombatSystem.enemy3;
+                }else if (x == 2&& y == 4) {
+                    enemy = CombatSystem.enemy4;
+                }else if (x == 0& y == 0) {
+                    enemy = CombatSystem.boss;
+                } if (enemy != null) {
+                    CombatSystem.enemyEncounter(player, x, y, scanner, map, enemy);
+                }
+            }
+
+        }
+    
+        
+        public static void enemyEncounter(Player player, int x, int y, Scanner scanner, GameMap map, combatCharacters enemy){
+            System.out.println("An enemy has appeared!");
+             while (true) {
+                System.out.println("Would you like to [f]ight or [r]un");
+                String choice = scanner.nextLine();
+                if (choice.equals("f")){
+                    combat(player, enemy, scanner, map);
+                    break;
+                }else if (choice.equals("r")){
+                    if(random.nextBoolean()) {
+                        System.out.println("You successfully ran away");
+                        break;
+                    }else{
+                        System.out.println("You failed to escape the enemy launches an attack");
+                        combat(player, enemy, scanner, map);
+                        break;
+                    }
+                    }else{
+                        System.out.println("INVAILD INPUT: enter f or r");
+                    }
+                }
+             }
+        }
+    
+        public static void combat(Player player, combatCharacters enemy, Scanner scanner, GameMap map) {
+       
+        switch(enemy.getName()) {
+            case "Rouge Droid" ->
+            System.out.println("Rouge Droid readies its weapons!\n Rouge Droid: 'Intruder Decteced must protect'\n");
+
+            case "Zep Zop" ->
+            System.out.println("Zep Zop bares its sharp claws at you");
+
+            case "Mastermind" -> {
+            System.out.println("Mastermind: Answer my riddles correctly and you may pass, fail and your life is forfit");
+            Location loc = map.getLocation(player.getX(), player.getY());
+            if (!loc.isEventTriggered()){
+                handleSolve(player,scanner, map);
+            }
+            if (!loc.isEventTriggered()){
+                System.out.println("Correct! You have solved the puzzle");
+                player.addItem(new Items("Cryo Core"));
+                 return;
+            }else{
+                System.out.println("Incorrect. The Strix Mastermind laughs.");
+            }
+        }
+            case "Grand General Zig" -> {
+            if (player.hasItem("Ore Chunk")){
+             System.out.println("You have something i want, give it to me or die");
+             System.out.println("Give to Ore Chunk to Grand General Zig or fight? ([y]es/[n]o)");
+             String choice = scanner.nextLine();
+             if ( choice.equals("y")) {
+                player.removeItem("Ore Chunk");
+                player.addItem(new Items("Warp Drive Fragment"));
+                System.out.println("You give the Ore Chunk and received the warp drive fragement");
+                return;
+             }
+            }else {
+                System.out.println("THEN PREPARE TO DIE HUMAN!");
+            }
+        }
+
+            case "Emperor Poutine" -> 
+            System.out.println("THIS IS YOUR END HUMAN! 'He charges at you with his laser sword.");
+        }
+
+            //combat
+            boolean fight = true;
+            while (fight) {
+                System.out.printf("%s HP: %d\n%s HP: %d\n", player.getName(), player.getHealth(), enemy.getName(), enemy.getHealth());
+                System.out.println("1. Attack\n2. Inventory\n3. Flee\n >");
+
+                String choice = scanner.nextLine();
+
+                switch (choice) {
+                    case "1" -> {
+                        int damage = random.nextInt(20) + 10;
+                        int weaponDamage = player.hasItem("Laser Rifle") ? 25: 0;
+                        int totalDamage = damage + weaponDamage;
+                        System.out.printf("You attack and deal %d damage!\n", totalDamage);
+                        enemy.setHealth(enemy.getHealth()-totalDamage);
+                    }
+
+                    case "2" -> player.listInventory();
+
+                    case "3" ->{ if(random.nextBoolean()){
+                        System.out.println("You sucessfully escaped");
+                        return;
+                    }
+                    else{
+                        System.out.println("You failed to escape");
+                    }
+                }
+            }
+            
+                    if (enemy.getHealth() <=0) {
+                        System.out.printf("You defeated %s\n", enemy.getName());
+                        switch (enemy.getName()) {
+                            case "Zep Zop" -> {
+                                System.out.println("Zep Zop drops a strange fruit. You gained a warp fragment");
+                                player.addItem(new Items("Fruit"));
+                                player.addItem(new Items("Warp Drive Fragment"));
+                                player.addItem(new Items("Stimpack"));
+                            }
+                            case "Mastermind" -> {
+                            player.addItem(new Items("Cryo Core"));
+                            player.addItem(new Items("Warp Drive Fragment"));
+                            player.addItem(new Items("Stimpack"));
+                            }
+                            case "Rogue Droid", "Grand General Zig" -> {
+                                player.addItem(new Items("Warp Drive Fragment"));
+                                player.addItem(new Items("Stimpack"));
+                                }
+                                case "Emperor Poutine" -> {
+                                    System.out.println("You Defeated Emperor Poutine. The Rift Gate activates..\nYou warp out and escape");
+                                   System.exit(0);
+                                }
+                        }
+                        player.addItem(new Items("Stimpack"));
+                        return;
+                    }
+                    int enemyDamage = enemyDamage(enemy);
+                    System.out.printf("%s attacks and deals %d damage!\n", enemy.getName(), enemyDamage);
+                   player.setHealth(player.getHealth() - enemyDamage);
+
+                if (player.getHealth() <= 0) {
+                System.out.println("\nYou have been defeated...");
+                System.exit(0);
+                
+
+                    }
+
+                }
+
+            }
+               private static int enemyDamage(combatCharacters enemy) {
+                return switch (enemy.getName()) {
+                    case "Rogue Droid" -> random.nextInt(10)+5;
+
+                    case "Zep Zop" -> random.nextInt(15)+10;
+
+                    case "Mastermind" -> random.nextInt(20)+15;
+
+                    case "Grand General Zig" -> random.nextInt(25)+20;
+
+                    case "Emperor Poutine" -> random.nextInt(30)+25;
+
+                    default -> 10;
+                };
+               }
+        
+
+        }
+        
+
+    
+
+

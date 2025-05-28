@@ -24,7 +24,7 @@ public class Player {
     /**
      * The player's current health value.
      */
-    private double health;
+    private int health;
 
     /**
      * The name of the player.
@@ -165,7 +165,7 @@ public class Player {
      *
      * @return The health value.
      */
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
 
@@ -192,7 +192,7 @@ public class Player {
      *
      * @param health The new health value.
      */
-    public void setHealth(double health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 }
