@@ -34,7 +34,7 @@ public class CombatSystem {
     // }
     // }
 
-    public static void combat(Player player, combatCharacters enemy, Scanner scanner, GameMap map) {
+    public static void combat(Player player, CombatCharacters enemy, Scanner scanner, GameMap map) {
         Location loc = map.getLocation(player.getX(), player.getY());
 
         // Display enemy intro text
@@ -161,7 +161,7 @@ public class CombatSystem {
         }
     }
 
-    private static void handleEnemyDefeat(Player player, combatCharacters enemy, GameMap map) {
+    private static void handleEnemyDefeat(Player player, CombatCharacters enemy, GameMap map) {
         enemy.setDead(true);
         System.out.println();
         System.out.printf("You defeated %s!\n", enemy.getName());

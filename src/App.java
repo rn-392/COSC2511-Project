@@ -240,32 +240,32 @@ public class App {
 
                 // Eridani (2,4): Grand General Zig
                 if (x == 2 && y == 4) {
-                    if (!combatCharacters.zig.isDead() && !currentLocation.isEventTriggered()) {
-                        CombatSystem.combat(player, combatCharacters.zig, scanner, map);
+                    if (!CombatCharacters.zig.isDead() && !currentLocation.isEventTriggered()) {
+                        CombatSystem.combat(player, CombatCharacters.zig, scanner, map);
                     } else {
                         System.out.println("The desert is eerily quiet. Zig is no longer here.");
                     }
 
                     // Ixyll (0,3): Zep Zop
                 } else if (x == 0 && y == 3) {
-                    if (!combatCharacters.zepZop.isDead()) {
-                        CombatSystem.combat(player, combatCharacters.zepZop, scanner, map);
+                    if (!CombatCharacters.zepZop.isDead()) {
+                        CombatSystem.combat(player, CombatCharacters.zepZop, scanner, map);
                     } else {
                         System.out.println("The jungle rustles gently, but Zep Zop has been defeated.");
                     }
 
                     // Strix (1,1): Mastermind
                 } else if (x == 1 && y == 1) {
-                    if (!combatCharacters.mastermind.isDead()) {
-                        CombatSystem.combat(player, combatCharacters.mastermind, scanner, map);
+                    if (!CombatCharacters.mastermind.isDead()) {
+                        CombatSystem.combat(player, CombatCharacters.mastermind, scanner, map);
                     } else {
                         System.out.println("The air is still and cold. The Mastermind has already been dealt with.");
                     }
 
                     // Ternion (4,0): Rogue Droid
                 } else if (x == 4 && y == 0) {
-                    if (!combatCharacters.droid.isDead()) {
-                        CombatSystem.combat(player, combatCharacters.droid, scanner, map);
+                    if (!CombatCharacters.droid.isDead()) {
+                        CombatSystem.combat(player, CombatCharacters.droid, scanner, map);
                     } else {
                         System.out.println("The droid's remains lie motionless among the ruins.");
                     }
@@ -361,7 +361,7 @@ public class App {
 
         } else if (x == 2 && y == 4) {
             //
-            if (combatCharacters.zig.isDead()) { // check if dead
+            if (CombatCharacters.zig.isDead()) { // check if dead
                 System.out.println("There's nothing more to do here.");
             } else if (loc.isEventTriggered()) {
                 System.out.println("You have already traded with Grand General Zig."); // check if already traded
@@ -395,7 +395,7 @@ public class App {
                     player.removeItem("Gate Key");
                     System.out.println("Your ship is engulfed by a blinding light...");
                     System.out.println();
-                    CombatSystem.combat(player, combatCharacters.boss, scanner, map);
+                    CombatSystem.combat(player, CombatCharacters.boss, scanner, map);
                 } else {
                     System.out.println();
                     System.out.println("You step back from the Rift Gate.");

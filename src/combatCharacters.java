@@ -8,7 +8,7 @@
  */
 import java.util.Random;
 
-public class combatCharacters {
+public class CombatCharacters {
 
     private final String name;
     private final String charType;
@@ -18,11 +18,11 @@ public class combatCharacters {
     private boolean isDead;
 
     /** Enemies */
-    public static combatCharacters droid = new combatCharacters("Rogue Droid", "Robot", 60, 5, 15);
-    public static combatCharacters zepZop = new combatCharacters("Zep Zop", "Xeno", 80, 5, 15);
-    public static combatCharacters mastermind = new combatCharacters("Mastermind", "AI", 100, 5, 20);
-    public static combatCharacters zig = new combatCharacters("Grand General Zig", "Alpha Xeno", 150, 10, 30);
-    public static combatCharacters boss = new combatCharacters("Emperor Poutine", "Grand Xeno", 200, 25, 50);
+    public static CombatCharacters droid = new CombatCharacters("Rogue Droid", "Robot", 60, 5, 15);
+    public static CombatCharacters zepZop = new CombatCharacters("Zep Zop", "Xeno", 80, 5, 15);
+    public static CombatCharacters mastermind = new CombatCharacters("Mastermind", "AI", 100, 5, 20);
+    public static CombatCharacters zig = new CombatCharacters("Grand General Zig", "Alpha Xeno", 150, 10, 30);
+    public static CombatCharacters boss = new CombatCharacters("Emperor Poutine", "Grand Xeno", 200, 25, 50);
 
     /**
      * Constructs a new combat character with specified attributes.
@@ -33,7 +33,7 @@ public class combatCharacters {
      * @param min      the minimum damage this character can deal
      * @param max      the maximum damage this character can deal
      */
-    public combatCharacters(String name, String charType, int health, int min, int max) {
+    public CombatCharacters(String name, String charType, int health, int min, int max) {
         this.name = name;
         this.charType = charType;
         this.health = health;
