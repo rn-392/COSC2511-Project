@@ -123,8 +123,8 @@ public class App {
         System.out.println("Type 'heal' to use a Stimpack to restore health");
         System.out.println("Type 'use' to use an item at your location.");
         System.out.println("Type 'help' or '?' for commands.");
-        System.out.println("Type 'q' to quit the game.");
         System.out.println("Type 'fight' initiates the fight with hostile npc.");
+        System.out.println("Type 'q' to quit the game.");
         System.out.println("====================================================");
         System.out.println();
 
@@ -228,6 +228,7 @@ public class App {
                 System.out.println("use - Use an item at your location");
                 System.out.println("heal - Use a Stimpack to restore health");
                 System.out.println("help / ? - Show this help menu");
+                System.out.println("fight - initiates the fight with hostile npc.");
                 System.out.println("q - Quit the game");
             }
             case "use" -> {
