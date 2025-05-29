@@ -440,10 +440,10 @@ public class App {
      * at the player’s current coordinates.
      *
      * <ul>
-     * <li>At (3,1): Presents the Monolith riddle. On a correct answer (seven),
+     * <li>At (3,1): Presents the Monolith riddle. On a correct answer sequence,
      * grants a Gate Key and marks the puzzle as solved.</li>
-     * <li>At (1,1): Presents the Strix Mastermind puzzle. On a correct answer
-     * sequence,
+     * <li>At (1,1): Presents the Strix Mastermind puzzle. On correct answer
+     * (seven),
      * grants a Cryo Core and marks the puzzle as solved.</li>
      * <li>Otherwise: Informs the player that there is no puzzle at this
      * location.</li>
