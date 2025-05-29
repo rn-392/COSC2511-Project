@@ -124,6 +124,7 @@ public class App {
         System.out.println("Type 'use' to use an item at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'q' to quit the game.");
+        System.out.println("Type 'fight' initiates the fight with hostile npc.");
         System.out.println("====================================================");
         System.out.println();
 
