@@ -7,6 +7,9 @@ import java.util.Random;
  * The player has a name, health, position on the map, and an inventory of
  * items.
  * The player can move in cardinal directions within the game’s 5x5 grid.
+ * There are 2 different messages that can be randomly displayed each time the
+ * playr moves.
+ * 
  * 
  * @author Ricky Nguyen
  */

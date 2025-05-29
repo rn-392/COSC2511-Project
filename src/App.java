@@ -289,17 +289,17 @@ public class App {
                 }
             }
 
-            case "debug" -> {
-                player.addItem(Items.WARP_DRIVE_FRAGMENT_1);
-                player.addItem(Items.WARP_DRIVE_FRAGMENT_2);
-                player.addItem(Items.WARP_DRIVE_FRAGMENT_3);
-                player.addItem(Items.WARP_DRIVE_FRAGMENT_4);
-                player.addItem(Items.GATE_KEY);
-                player.addItem(Items.LASER_RIFLE);
-                player.addItem(Items.SHIELD_MODULE);
-                player.setHealth(300);
-                System.out.println("DEBUG MODE ACTIVE: Starting at Rift Gate with full loadout.");
-            }
+            // case "debug" -> {
+            // player.addItem(Items.WARP_DRIVE_FRAGMENT_1);
+            // player.addItem(Items.WARP_DRIVE_FRAGMENT_2);
+            // player.addItem(Items.WARP_DRIVE_FRAGMENT_3);
+            // player.addItem(Items.WARP_DRIVE_FRAGMENT_4);
+            // player.addItem(Items.GATE_KEY);
+            // player.addItem(Items.LASER_RIFLE);
+            // player.addItem(Items.SHIELD_MODULE);
+            // player.setHealth(300);
+            // System.out.println("DEBUG MODE ACTIVE");
+            // }
             default -> System.out.println("Invalid input.");
 
         }
@@ -440,16 +440,16 @@ public class App {
      * at the player’s current coordinates.
      *
      * <ul>
-     * <li>At (3,1): Presents the Monolith riddle. On a correct answer (echo),
+     * <li>At (3,1): Presents the Monolith riddle. On a correct answer (seven),
      * grants a Gate Key and marks the puzzle as solved.</li>
      * <li>At (1,1): Presents the Strix Mastermind puzzle. On a correct answer
-     * (seven), grants a Cryo Core and marks the puzzle as solved.</li>
+     * sequence,
+     * grants a Cryo Core and marks the puzzle as solved.</li>
      * <li>Otherwise: Informs the player that there is no puzzle at this
      * location.</li>
      * </ul>
      *
-     * If a puzzle has already been solved at the location, the player is notified
-     * and no further action is taken.
+     * If a puzzle has already been solved at the location, the player is notified.
      *
      * @param player  the Player whose inventory may be updated with rewards
      * @param scanner the Scanner used to read the player’s answer
