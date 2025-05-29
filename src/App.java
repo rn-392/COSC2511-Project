@@ -107,7 +107,7 @@ public class App {
         System.out.printf("Welcome to GALACTIC DAWN, %s!\n", player.getName());
         System.out.println();
         System.out.println("====================== BRIEF =====================");
-        System.out.println("You awaken in empty space aboard a crippled spacecraft.");
+        System.out.println("You awaken in empty space aboard a crippled spaceship.");
         System.out.println("Its warp drive is obliterated and the stars are unreachable.");
         System.out.println("To escape, you must explore nearby planets, retrieve");
         System.out.println("four warp drive fragments, and defeat Emperor Poutine,");
