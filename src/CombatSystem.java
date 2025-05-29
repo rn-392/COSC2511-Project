@@ -238,10 +238,9 @@ public class CombatSystem {
 
             }
             case "Mastermind" -> {
-                player.addItem(Items.CRYO_CORE);
                 player.addItem(Items.WARP_DRIVE_FRAGMENT_4);
                 player.addItem(Items.STIMPACK);
-                System.out.println("You have gained: Cryo Core, Warp Drive Fragment 4, Stimpack");
+                System.out.println("You have gained: Warp Drive Fragment 4, Stimpack");
                 loc.setHostile(false);
                 loc.setLongDescription("""
                         The freezing gales no longer scream with malevolent whispers.

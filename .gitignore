@@ -26,3 +26,4 @@ replay_pid*
 *.gdoc
 *.gsheet
 *~
+.DS_Store

@@ -10,7 +10,7 @@ import java.util.Scanner;
  * generate javadoc = javadoc -d doc/ -private src/*.java -author
  */
 public class App {
-    /*
+    /**
      * Variable that handles game state
      */
     private static boolean gameStart = false;
@@ -44,6 +44,7 @@ public class App {
 
         displayGameInstructions(player);
 
+        // main game loop
         while (gameStart) {
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
