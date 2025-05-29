@@ -480,12 +480,9 @@ public class App {
                 return;
             }
             System.out.println("The Monolith whispers a riddle:");
-            System.out.println("""
-                    "I speak without a mouth and hear without ears."
-                    "I have nobody, but I come alive with wind. What am I?"
-                    """);
+            System.out.println("What word contains 26 letters but only 3 syllables?");
             System.out.print("Your answer: ");
-            if (scanner.nextLine().trim().equalsIgnoreCase("echo")) {
+            if (scanner.nextLine().trim().equalsIgnoreCase("alphabet")) {
                 System.out.println("The Monolith glows brightly. Correct!");
                 player.addItem(new Items("Gate Key"));
                 System.out.println("You have gained: Gate Key");
