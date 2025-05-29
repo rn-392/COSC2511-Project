@@ -227,7 +227,7 @@ public class App {
                     if (!CombatCharacters.zig.isDead() && !currentLocation.isEventTriggered()) {
                         CombatSystem.combat(player, CombatCharacters.zig, scanner, map);
                     } else {
-                        System.out.println("The desert is eerily quiet. Zig is no longer here.");
+                        System.out.println("Zig and his forces have retreated.");
                     }
 
                     // Ixyll (0,3): Zep Zop
@@ -339,8 +339,9 @@ public class App {
                     player.removeItem("Cryo Core");
                     System.out.println("You use the Cryo Core to power up the AI terminal.");
                     System.out.println("The room hums to life as the armory doors slide open.");
-                    System.out.println("You have found: Laser Rifle");
+                    System.out.println();
                     player.addItem(Items.LASER_RIFLE);
+                    System.out.println("You have found: Laser Rifle");
                 } else {
                     System.out.println("You decide not to use the Cryo Core right now.");
                 }

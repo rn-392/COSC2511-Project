@@ -267,7 +267,7 @@ public class CombatSystem {
                 System.out.println("With his fall, the corruption strangling the warp system vanishes.");
                 System.out.println("\nThe Warp Drive Fragments begin to glow...");
                 System.out.println("One by one, they rise into the air and fuse together.");
-                System.out.println("\nWith your ship ready to blast off, new chapter awaits among the stars.");
+                System.out.println("\nWith your ship ready to blast off, a new chapter awaits among the stars.");
                 System.out.println("\nThank you for playing Galactic Dawn, " + player.getName() + "!");
                 System.exit(0);
             }
