@@ -8,7 +8,6 @@ import java.util.Scanner;
  * This class handles initialization of core game components (player, map),
  * processes player commands, manages combat and item usage, and
  * coordinates game flow through various menu and interaction methods.
- * generate javadoc = javadoc -d doc/ -private src/*.java -author
  */
 public class App {
     /**
