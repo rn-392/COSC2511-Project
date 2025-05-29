@@ -49,7 +49,7 @@ public class App {
             System.out.print("Enter command: ");
             String input = scanner.nextLine();
             System.out.println();
-            processCommand(input, player, map, scanner);
+            handleCommand(input, player, map, scanner);
             System.out.println();
         }
     }
@@ -159,7 +159,7 @@ public class App {
      * @param map     The game map object.
      * @param scanner The scanner object for reading user input.
      */
-    private static void processCommand(String input, Player player, GameMap map, Scanner scanner) {
+    private static void handleCommand(String input, Player player, GameMap map, Scanner scanner) {
         Location currentLocation = map.getLocation(player.getX(), player.getY());
         switch (input.trim().toLowerCase()) {
             case "n" -> {

@@ -136,7 +136,7 @@ public class CombatSystem {
                             System.out.println();
                             System.out.println("You use a stimpack and replenish some health.");
                             int oldHealth = player.getHealth();
-                            player.setHealth(oldHealth + 50);
+                            player.setHealth(oldHealth + 50); // stimpack adds 50 to health total
                             int newHealth = player.getHealth();
                             System.out.println();
                             System.out.printf("Previous Health: %d\nCurrent Health: %d\n", oldHealth, newHealth);
@@ -166,23 +166,27 @@ public class CombatSystem {
 
             // Enemy attacks (only if player didn't heal or enter invalid input)
             if (choice.equals("1") || choice.equals("attack") || choice.equals("3") || choice.equals("flee")) {
-                int enemyDamage = enemy.rollDamage();
+                int originalDamage = enemy.rollDamage();
+                int finalDamage = originalDamage;
 
                 if (player.hasItem("Shield Module")) {
-                    int mitigated = (int) (enemyDamage * 0.3); // reduce damage by 30%
-                    System.out.printf("\nYour Shield Module activates! Incoming damage reduced from %d to %d.\n",
-                            enemyDamage, enemyDamage - mitigated);
-                    enemyDamage = mitigated;
-                }
-                System.out.println();
-                System.out.printf("%s attacks and deals %d damage!\n", enemy.getName(), enemyDamage);
-                player.setHealth(player.getHealth() - enemyDamage);
+                    int damageReduction = (int) (originalDamage * 0.3); // 30% damage reduction
+                    finalDamage = originalDamage - damageReduction;
 
-                // Check if player is defeated
-                if (player.getHealth() <= 0) {
-                    System.out.println("\nYou have been defeated...");
-                    System.exit(0);
+                    System.out.printf(
+                            "\nYour Shield Module activates! Incoming damage reduced from %d to %d.\n",
+                            originalDamage, finalDamage);
                 }
+
+                System.out.println();
+                System.out.printf("%s attacks and deals %d damage!\n", enemy.getName(), finalDamage);
+                player.setHealth(player.getHealth() - finalDamage);
+            }
+
+            // Check if player is defeated
+            if (player.getHealth() <= 0) {
+                System.out.println("\nYou have been defeated...");
+                System.exit(0);
             }
         }
     }
@@ -198,7 +202,7 @@ public class CombatSystem {
      * @param map    The game map used to locate and update the current location.
      */
     private static void handleEnemyDefeat(Player player, CombatCharacters enemy, GameMap map) {
-        enemy.setDead(true);
+        enemy.setDead(true); // mark enemy as dead
         System.out.println();
         System.out.printf("You defeated %s!\n", enemy.getName());
         Location loc = map.getLocation(player.getX(), player.getY());
@@ -248,9 +252,14 @@ public class CombatSystem {
                         """);
             }
             case "Emperor Poutine" -> {
+                System.out.println("You have defeated Emperor Poutine!\n");
                 System.out.println(
-                        "You have defeated Emperor Poutine! The Rift Gate activates...\nYou warp out and escape.");
-                System.out.println("\nThanks for playing!");
+                        "The tyrant's reign ends in a burst of blinding light, his final scream echoing across the void.");
+                System.out.println("With his fall, the corruption strangling the warp system vanishes.");
+                System.out.println("\nThe Warp Drive Fragments begin to glow...");
+                System.out.println("One by one, they rise into the air and fuse together.");
+                System.out.println("\nWith your ship ready to blast off, new chapter awaits among the stars.");
+                System.out.println("Thank you for playing Galactic Dawn, " + player.getName() + "!");
                 System.exit(0);
             }
         }

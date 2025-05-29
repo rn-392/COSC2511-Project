@@ -25,7 +25,7 @@ public class GameMap {
                         for (int j = 0; j < 5; j++) {
                                 map[i][j] = new Location("Empty Space", "You are drifting through empty space.", false);
                                 int variation = random.nextInt(3);
-                                switch (variation) {
+                                switch (variation) { // randomize descriptions
                                         case 0 -> map[i][j].setLongDescription(
                                                         "There is nothing of interest here. Just the cold, silent void of space.");
                                         case 1 -> map[i][j].setLongDescription(
