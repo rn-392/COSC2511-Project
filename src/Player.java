@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents a player in the game.
@@ -10,6 +11,7 @@ import java.util.List;
  * @author Ricky Nguyen
  */
 public class Player {
+    Random random = new Random();
 
     /**
      * The x-coordinate of the player's position (horizontal).
@@ -52,6 +54,11 @@ public class Player {
     public void moveNorth() {
         if (y < 4) {
             y++;
+            if (random.nextBoolean()) {
+                System.out.println("Your ship moves forward to the north.");
+            } else {
+                System.out.println("You guide your ship northward through space.");
+            }
         } else {
             System.out.println("Can't go further North.");
         }
@@ -63,6 +70,11 @@ public class Player {
     public void moveSouth() {
         if (y > 0) {
             y--;
+            if (random.nextBoolean()) {
+                System.out.println("Your ship moves forward to the south.");
+            } else {
+                System.out.println("You guide your ship southward through space.");
+            }
         } else {
             System.out.println("Can't go further south.");
         }
@@ -74,6 +86,11 @@ public class Player {
     public void moveEast() {
         if (x < 4) {
             x++;
+            if (random.nextBoolean()) {
+                System.out.println("Your ship moves forward to the east.");
+            } else {
+                System.out.println("You guide your ship eastward through space.");
+            }
         } else {
             System.out.println("Can't go further east.");
         }
@@ -85,6 +102,11 @@ public class Player {
     public void moveWest() {
         if (x > 0) {
             x--;
+            if (random.nextBoolean()) {
+                System.out.println("Your ship moves forward to the west.");
+            } else {
+                System.out.println("You guide your ship westward through space.");
+            }
         } else {
             System.out.println("Can't go further west.");
         }

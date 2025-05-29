@@ -109,7 +109,7 @@ public class CombatSystem {
                     int weaponDamage = 0;
                     int playerDamage = random.nextInt(16) + 10;
                     if (player.hasItem("Laser Rifle")) {
-                        weaponDamage = 30;
+                        weaponDamage = 20;
                     }
 
                     int totalDamage = playerDamage + weaponDamage;
@@ -169,9 +169,9 @@ public class CombatSystem {
                 int enemyDamage = enemy.rollDamage();
 
                 if (player.hasItem("Shield Module")) {
-                    int mitigated = (int) (enemyDamage * 0.5); // reduce damage by 50%
+                    int mitigated = (int) (enemyDamage * 0.3); // reduce damage by 30%
                     System.out.printf("\nYour Shield Module activates! Incoming damage reduced from %d to %d.\n",
-                            enemyDamage, mitigated);
+                            enemyDamage, enemyDamage - mitigated);
                     enemyDamage = mitigated;
                 }
                 System.out.println();

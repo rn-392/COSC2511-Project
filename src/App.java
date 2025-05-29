@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -11,8 +10,9 @@ import java.util.Scanner;
  * generate javadoc = javadoc -d doc/ -private src/*.java -author
  */
 public class App {
-
-    private static final Random random = new Random();
+    /*
+     * Variable that handles game state
+     */
     private static boolean gameStart = false;
 
     /**
@@ -25,6 +25,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         GameMap map = new GameMap();
         Player player = new Player();
+        player.addItem(Items.STIMPACK);
 
         displayWelcomeMenu(scanner);
 
@@ -121,7 +122,7 @@ public class App {
         System.out.println("Type 'map' to see the map.");
         System.out.println("Type 'solve' to attempt a puzzle at your location.");
         System.out.println("Type 'heal' to use a Stimpack to restore health");
-        System.out.println("Type 'use' to use an item at your location.");
+        System.out.println("Type 'use' to use or trade an item at your location.");
         System.out.println("Type 'help' or '?' for commands.");
         System.out.println("Type 'fight' initiates the fight with hostile npc.");
         System.out.println("Type 'q' to quit the game.");
@@ -162,38 +163,18 @@ public class App {
         switch (input.trim().toLowerCase()) {
             case "n" -> {
                 player.moveNorth();
-                if (random.nextBoolean()) {
-                    System.out.println("Your ship moves forward to the north.");
-                } else {
-                    System.out.println("You guide your ship northward through space.");
-                }
                 printCurrentLocation(player, map);
             }
             case "s" -> {
                 player.moveSouth();
-                if (random.nextBoolean()) {
-                    System.out.println("Your ship moves forward to the south.");
-                } else {
-                    System.out.println("You guide your ship southward through space.");
-                }
                 printCurrentLocation(player, map);
             }
             case "e" -> {
                 player.moveEast();
-                if (random.nextBoolean()) {
-                    System.out.println("Your ship moves forward to the east.");
-                } else {
-                    System.out.println("You guide your ship eastward through space.");
-                }
                 printCurrentLocation(player, map);
             }
             case "w" -> {
                 player.moveWest();
-                if (random.nextBoolean()) {
-                    System.out.println("Your ship moves forward to the west.");
-                } else {
-                    System.out.println("You guide your ship westward through space.");
-                }
                 printCurrentLocation(player, map);
             }
             case "map" -> map.printMap(player);
@@ -225,7 +206,7 @@ public class App {
                 System.out.println("map - Display the game map");
                 System.out.println("inv - Show your inventory");
                 System.out.println("solve - Attempt a puzzle at your location");
-                System.out.println("use - Use an item at your location");
+                System.out.println("use - Use or trade an item at your location");
                 System.out.println("heal - Use a Stimpack to restore health");
                 System.out.println("help / ? - Show this help menu");
                 System.out.println("fight - initiates the fight with hostile npc.");
