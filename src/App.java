@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -458,25 +459,58 @@ public class App {
         int x = player.getX(), y = player.getY();
         Location loc = map.getLocation(x, y);
 
+        // monolith riddle
         if (x == 3 && y == 1) {
             if (loc.isEventTriggered()) {
-                System.out.println("You have already solved the Monolith's riddle.");
+                System.out.println("You have already solved the Monolith's paradox.");
                 return;
             }
-            System.out.println("The Monolith whispers a riddle:");
-            System.out.println("What word contains 26 letters but only 3 syllables?");
-            System.out.print("Your answer: ");
-            if (scanner.nextLine().trim().equalsIgnoreCase("alphabet")) {
-                System.out.println("The Monolith glows brightly. Correct!");
-                player.addItem(new Items("Gate Key"));
-                System.out.println("You have gained: Gate Key");
-                loc.triggerEvent();
-            } else {
-                System.out.println("That is not correct. The Monolith remains silent.");
+
+            System.out.println("The Monolith whispers a paradox:");
+            System.out.println("\"This statement is false. True or false?\"");
+            System.out.println("Answer correctly three times in a row.\n");
+
+            boolean expected = false; // first answer is false
+            int streak = 0;
+            final int NEEDED = 3;
+
+            while (streak < NEEDED) {
+                System.out.print("Your answer (true/false): ");
+                boolean playerAnswer;
+                try {
+                    playerAnswer = scanner.nextBoolean();
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please type true or false.");
+                    scanner.nextLine();
+                    continue;
+                }
+                scanner.nextLine();
+
+                if (playerAnswer == expected) {
+                    streak++;
+                    System.out.printf("...hmm. (%d/%d)\n", streak, NEEDED);
+                    // flip answer
+                    expected = !expected;
+                } else {
+                    System.out.println("Wrong. The Monolith resets your progress.\n");
+                    streak = 0;
+                    expected = false; // restart expecting false first
+                }
             }
-        } else if (x == 1 && y == 1) {
+
+            // correct solution
+            System.out.println("\nThe Monolith glows brightly. You've overcome the challenge.");
+            player.addItem(Items.GATE_KEY);
+            System.out.println("You have gained: Gate Key");
+            loc.setLongDescription("""
+                    The etched glyphs of the Monolith have disappeared.
+                    It stands still.
+                    """);
+            loc.triggerEvent();
+
+        } else if (x == 1 && y == 1) {// strix mastermind riddle
             if (loc.isEventTriggered()) {
-                System.out.println("You have already solved the Strix Mastermind's puzzle.");
+                System.out.println("You have already solved Mastermind's riddle.");
                 return;
             }
             System.out.println("The Strix Mastermind challenges you:");
@@ -484,6 +518,7 @@ public class App {
                     "I am an odd number. Take away one letter and I become even. What number am I?"
                     """);
             System.out.print("Your answer: ");
+
             if (scanner.nextLine().trim().equalsIgnoreCase("seven")) {
                 System.out.println("Correct! You have solved the puzzle.");
                 player.addItem(new Items("Cryo Core"));

@@ -141,9 +141,11 @@ public class CombatSystem {
                             System.out.println();
                             System.out.printf("Previous Health: %d\nCurrent Health: %d\n", oldHealth, newHealth);
                         } else {
+                            System.out.println();
                             System.out.println("You save your Stimpacks for another time.");
                         }
                     } else {
+                        System.out.println();
                         System.out.println("You don't have any Stimpacks.");
                     }
                     continue; // Skip enemy turn when healing
@@ -151,9 +153,11 @@ public class CombatSystem {
 
                 case "3", "flee" -> {
                     if (random.nextBoolean()) {
+                        System.out.println();
                         System.out.println("You successfully escaped!");
                         return;
                     } else {
+                        System.out.println();
                         System.out.println("You failed to escape!");
                     }
                 }
@@ -185,7 +189,13 @@ public class CombatSystem {
 
             // Check if player is defeated
             if (player.getHealth() <= 0) {
-                System.out.println("\nYou have been defeated...");
+                System.out.println("\nYou have been defeated...Better luck next time!");
+                if (random.nextBoolean()) {
+                    System.out.println("Hint: Certain items may give you an advantage in combat.");
+                } else {
+                    System.out.println(
+                            "Hint: You can heal during and out of combat. Check your inventory for any Stimpacks.");
+                }
                 System.exit(0);
             }
         }

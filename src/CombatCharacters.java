@@ -44,7 +44,7 @@ public class CombatCharacters {
     public static CombatCharacters zepZop = new CombatCharacters("Zep Zop", "Xeno", 80, 15, 20);
     public static CombatCharacters mastermind = new CombatCharacters("Mastermind", "AI", 100, 20, 25);
     public static CombatCharacters zig = new CombatCharacters("Grand General Zig", "Alpha Xeno", 150, 20, 30);
-    public static CombatCharacters boss = new CombatCharacters("Emperor Poutine", "Grand Xeno", 250, 40, 80);
+    public static CombatCharacters boss = new CombatCharacters("Emperor Poutine", "Grand Xeno", 250, 40, 50);
 
     /**
      * Constructs a new combat character with specified attributes.
