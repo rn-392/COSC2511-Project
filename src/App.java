@@ -153,7 +153,6 @@ public class App {
 
     /**
      * Processes a user command and updates the game state accordingly.
-     * Handles movement, map display, help, quitting, and invalid input.
      *
      * @param input   The command entered by the user.
      * @param player  The player object representing the current player.
@@ -308,9 +307,14 @@ public class App {
     /**
      * Attempts to use an item or trigger an event at the player's current location.
      * <p>
-     * - At (2,3): powers up the AI terminal if the player has a Cryo Core.
-     * - At (0,0): activates the Rift Gate if the player has a Gate Key.
-     * - Otherwise: informs the player there is nothing to use here.
+     * - At (2,3): Powers up the AI terminal if the player has a Cryo Core,
+     * unlocking the armory.
+     * - At (2,4): Trades an Ore Chunk with Grand General Zig for a Warp Drive
+     * Fragment.
+     * - At (0,0): Activates the Rift Gate if the player has a Gate Key and all Warp
+     * Drive Fragments.
+     * - At (4,3): Trades an Ixyll Fruit with the Jungle Hermit for a Shield Module.
+     * - Otherwise: Informs the player there is nothing to use here.
      *
      * @param player  The player object, whose inventory will be checked and
      *                modified.
