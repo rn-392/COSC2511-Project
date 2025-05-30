@@ -53,6 +53,23 @@ public class Items {
     public static final Items WARP_DRIVE_FRAGMENT_3 = new Items("Warp Drive Fragment 3");
     public static final Items WARP_DRIVE_FRAGMENT_4 = new Items("Warp Drive Fragment 4");
 
+    /**
+     * Resources array
+     */
+    public static final Items[] RESOURCES = {
+            ORE_CHUNK, CRYO_CORE, SHIELD_MODULE, IXYLL_FRUIT, STIMPACK
+    };
+
+    /**
+     * Warp Drive Fragmets array
+     */
+    public static final Items[] FRAGMENTS = {
+            WARP_DRIVE_FRAGMENT_1,
+            WARP_DRIVE_FRAGMENT_2,
+            WARP_DRIVE_FRAGMENT_3,
+            WARP_DRIVE_FRAGMENT_4
+    };
+
     // public static void main(String[] args) {
     // Scanner scanner = new Scanner(System.in);
     // Items[] items = new Items[5];
